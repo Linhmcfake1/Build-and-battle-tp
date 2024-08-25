@@ -1,32 +1,254 @@
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-109.59099578857422, 17633.49609375, 9045.5283203125)
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+
+local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local LightingTab = Window:MakeTab({
+    Name = "close gui here",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local Tab = Window:MakeTab({
+	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "script by linhmcfake👈",
+	Callback = function()
+
+local args = {
+    [1] = "SCRIPT BY LINHMCFAKE",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+
+  	end    
+})
+Tab:AddButton({
+	Name = "(op) Infinite yield",
+	Callback = function()
+
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
+
+  	end    
+})
+Tab:AddButton({
+	Name = "uber vip",
+	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
 wait()
+ end
+})
 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-95.66191101074219, 17633.4921875, 9045.501953125)
+Tab:AddButton({
+	Name = "island",
+	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)
 wait()
- 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-81.14459228515625, 17633.494140625, 9045.4951171875)
+ end
+})
+Tab:AddButton({
+	Name = "mega vip sword",
+	Callback = function()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-87.40028381347656, 17633.498046875, 9224.03515625)
 wait()
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-124.58910369873047, 17633.49609375, 9045.521484375)
-wait(0.2)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-112.66064453125, 17633.501953125, 9223.8623046875)
-wait(0.1)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99.59352111816406, 17633.50390625, 9223.6806640620)
-wait(0.1)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-87.56825256347656, 17633.982421875, 9224.4140625)
-wait(0.1)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-94.50363159179688, 17633.498046875, 9356.529296875)
-wait(0.1)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-105.58307647705078, 17633.498046875, 9356.5283203125)
-wait(0.1)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-81.60734558105469, 17633.498046875, 9045.93359375)
-wait()
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-257.9955139160156, 33.21671676635742, -121.7444076538086)
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-237.9197235107422, 33.21670913696289, 7.5340495109558105)
 wait(2)
+ end
+})
+Tab:AddButton({
+	Name = "get all vip tool",
+	Callback = function()
+  	
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/main/Nothings'),true))()
+end
+})
+Tab:AddButton({
+	Name = "arrow sword (hold normal sword)",
+	Callback = function()
+
+local args = {
+    [1] = "Out"
+}
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("3 Sword").GripEvent:FireServer(unpack(args))
+end
+})
+Tab:AddButton({
+	Name = "arrow sword (hold mega vip sword)",
+	Callback = function()
+
+local args = {
+    [1] = "Out"
+}
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Mega VIP Sword").GripEvent:FireServer(unpack(args))
+end
+})
+Tab:AddButton({
+	Name = "hitbox everyone 20",
+	Callback = function()
+
+local HeadSize = 20
+local IsDisabled = true
+local IsTeamCheckEnabled = false 
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    if IsDisabled then
+        local localPlayer = game:GetService('Players').LocalPlayer
+        if not localPlayer then return end
+        
+        local localPlayerTeam = localPlayer.Team
+        
+        for _, player in ipairs(game:GetService('Players'):GetPlayers()) do
+            if player ~= localPlayer and (not IsTeamCheckEnabled or player.Team ~= localPlayerTeam) then
+                local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.Size = Vector3.new(HeadSize, HeadSize, HeadSize)
+                    humanoidRootPart.Transparency = 0.7
+                    humanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                    humanoidRootPart.Material = Enum.Material.Neon
+                    humanoidRootPart.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+end
+})
+Tab:AddButton({
+	Name = "anti fling",
+	Callback = function()
+
+-- // Constants \\ --
+-- [ Services ] --
+local Services = setmetatable({}, {__index = function(Self, Index)
+local NewService = game.GetService(game, Index)
+if NewService then
+Self[Index] = NewService
+end
+return NewService
+end})
+
+-- [ LocalPlayer ] --
+local LocalPlayer = Services.Players.LocalPlayer
+
+-- // Functions \\ --
+local function PlayerAdded(Player)
+   local Detected = false
+   local Character;
+   local PrimaryPart;
+
+   local function CharacterAdded(NewCharacter)
+       Character = NewCharacter
+       repeat
+           wait()
+           PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+       until PrimaryPart
+       Detected = false
+   end
+
+   CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+   Player.CharacterAdded:Connect(CharacterAdded)
+   Services.RunService.Heartbeat:Connect(function()
+       if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+           if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+               if Detected == false then
+                   game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                       Text = "may be is exeploited, Player: " .. tostring(Player);
+                       Color = Color3.fromRGB(255, 200, 0);
+                   })
+               end
+               Detected = true
+               for i,v in ipairs(Character:GetDescendants()) do
+                   if v:IsA("BasePart") then
+                       v.CanCollide = false
+                       v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                       v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                       v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                   end
+               end
+               PrimaryPart.CanCollide = false
+               PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+           end
+       end
+   end)
+end
+
+-- // Event Listeners \\ --
+for i,v in ipairs(Services.Players:GetPlayers()) do
+   if v ~= LocalPlayer then
+       PlayerAdded(v)
+   end
+end
+Services.Players.PlayerAdded:Connect(PlayerAdded)
+
+local LastPosition = nil
+Services.RunService.Heartbeat:Connect(function()
+   pcall(function()
+       local PrimaryPart = LocalPlayer.Character.PrimaryPart
+       if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+           PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+           PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+           PrimaryPart.CFrame = LastPosition
+
+           game.StarterGui:SetCore("ChatMakeSystemMessage", {
+               Text = "You were flung. Neutralizing velocity.";
+               Color = Color3.fromRGB(255, 0, 0);
+           })
+       elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+           LastPosition = PrimaryPart.CFrame
+       end
+   end)
+end)
+end
+})
+Tab:AddButton({
+	Name = "get 475 point (need change server in second time)",
+	Callback = function()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-65.8681411743164, 17634.498046875, 9359.7236328125)
+wait()game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.600982666015625, 17634.498046875, 9227.1826171875)
+wait()game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.66141891479492, 17634.49609375, 9048.8037109375)
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259.2829284667969, 33.21671676635742, -119.0732421875)
+wait(1)
+end
+})
+
+Tab:AddButton({
+	Name = "aimbot(for pvp)",
+	Callback = function()
+loadstring(game:HttpGet("https://rentry.co/n55gmtpi/raw", true))()
+end
+})
+
+Tab:AddButton({
+	Name = "reach (hold your sword before tap this)",
+	Callback = function()
+
+game.StarterGui:SetCore("SendNotification", {
+    Title    = "Sword Reach Script Loaded by"; 
+    Text     = "You need to hold a tool when executing."; 
+    Icon     = ""; 
+    Duration = 40;
+    Callback = bindableFunction;
+    Button1  = "made by linhmcfake";  
+    Button2  = "alt account: linhmc_new";
+})
+for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
+                if v:isA("Tool") then
+                    local a = Instance.new("SelectionBox",v.Handle)
+                    a.Adornee = v.Handle
+                    v.Handle.Size = Vector3.new(0.5,0.5,60)
+                    v.GripPos = Vector3.new(0,0,0)
+                    lplayer.Character.Humanoid:UnequipTools()
+                end
+end
+end
+})
+)
