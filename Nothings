@@ -1,0 +1,32 @@
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-109.59099578857422, 17633.49609375, 9045.5283203125)
+wait()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-95.66191101074219, 17633.4921875, 9045.501953125)
+wait()
+ 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-81.14459228515625, 17633.494140625, 9045.4951171875)
+wait()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-124.58910369873047, 17633.49609375, 9045.521484375)
+wait(0.2)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-112.66064453125, 17633.501953125, 9223.8623046875)
+wait(0.1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99.59352111816406, 17633.50390625, 9223.6806640620)
+wait(0.1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-87.56825256347656, 17633.982421875, 9224.4140625)
+wait(0.1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-94.50363159179688, 17633.498046875, 9356.529296875)
+wait(0.1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-105.58307647705078, 17633.498046875, 9356.5283203125)
+wait(0.1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-81.60734558105469, 17633.498046875, 9045.93359375)
+wait()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-257.9955139160156, 33.21671676635742, -121.7444076538086)
+wait(2)
