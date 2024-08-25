@@ -251,4 +251,3 @@ for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
 end
 end
 })
-)
