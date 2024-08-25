@@ -301,3 +301,17 @@ for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
 end
 end
 })
+Tab:AddButton({
+	Name = "🔥[FE] tp part 🔥",
+	Callback = function()
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/local-script/showcases/main/unanchored'))()
+end
+})
+Tab:AddButton({
+	Name = "delta x keyboard (not my script)",
+	Callback = function()
+
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Delta-keyboard-Crack-15565"))()
+end
+})
