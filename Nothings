@@ -315,3 +315,15 @@ Tab:AddButton({
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Delta-keyboard-Crack-15565"))()
 end
 })
+Tab:AddButton({
+	Name = "kawaii best fling",
+	Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-KAWAII-FREAKY-FLING-BEST-UNIVERSAL-FLING-17551"))()
+end
+})
+Tab:AddButton({
+	Name = "telekinesis",
+	Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Telekinesis-12332"))()
+end
+})
