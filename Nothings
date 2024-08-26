@@ -30,6 +30,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
 Tab:AddButton({
 	Name = "💥exeploiter💥",
 	Callback = function()
+end
+})
 Tab:AddButton({
 	Name = "(op) Infinite yield",
 	Callback = function()
