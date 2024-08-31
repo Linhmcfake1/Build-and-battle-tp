@@ -446,3 +446,6 @@ end
 Tab:AddButton({
 	Name = "Camera shake (beta)",
 	Callback = function()
+
+end
+})
