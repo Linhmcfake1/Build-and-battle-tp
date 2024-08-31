@@ -443,3 +443,6 @@ troll.MouseButton1Down:connect(function()
 end)
 end
 })
+Tab:AddButton({
+	Name = "Camera shake (beta)",
+	Callback = function()
