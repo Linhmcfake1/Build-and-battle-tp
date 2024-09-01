@@ -1,4 +1,4 @@
-local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source'))()
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 
 local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
