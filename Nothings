@@ -2,7 +2,6 @@ local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexwa
 
 local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
-local LightingTab = Window:MakeTab({
     Name = "close gui here",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
