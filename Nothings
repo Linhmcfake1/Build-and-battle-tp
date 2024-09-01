@@ -445,8 +445,3 @@ Tab:AddButton({
 
 end
 })
-local Tab = Window:MakeTab({
-	Name = "version:1.2",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
