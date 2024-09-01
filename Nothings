@@ -28,7 +28,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
   	end    
 })
 Tab:AddButton({
-	Name = "🍎version 2.2🍎",
+	Name = "🍎version 2.3🍎",
 	Callback = function()
 end
 })
@@ -44,6 +44,11 @@ Tab:AddButton({
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
 
   	end    
+Tab:AddButton({
+	Name = "kill gui (required touch damage tool)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Spin%20hats"))()loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
+end
 })
 Tab:AddButton({
 	Name = "teleport to uber vip room",
