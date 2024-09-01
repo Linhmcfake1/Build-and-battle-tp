@@ -123,12 +123,17 @@ Tab:AddButton({
 	Name = "get 475 point (need change server in second time)",
 	Callback = function()
 
+-- Lưu lại vị trí ban đầu của HumanoidRootPart
+local originalPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-65.8681411743164, 17634.498046875, 9359.7236328125)
-wait()game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.600982666015625, 17634.498046875, 9227.1826171875)
-wait()game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.66141891479492, 17634.49609375, 9048.8037109375)
 wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259.2829284667969, 33.21671676635742, -119.0732421875)
-wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.600982666015625, 17634.498046875, 9227.1826171875)
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.66141891479492, 17634.49609375, 9048.8037109375)
+wait()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = originalPosition
 end
 })
 
