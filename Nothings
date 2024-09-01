@@ -63,13 +63,13 @@ local humanoidRootPart = player.Character.HumanoidRootPart
 local originalCFrame = humanoidRootPart.CFrame
 
 humanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
-wait(0.1) -- giảm thời gian chờ ở đây
+wait() 
 humanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-95.51972198486328, 17633.49609375, 9045.4931640625)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
 wait(0.1)
 humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
