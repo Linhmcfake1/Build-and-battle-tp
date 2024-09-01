@@ -58,12 +58,10 @@ Tab:AddButton({
 	Name = "get all vip tool",
 	Callback = function()
 
-  -- Lưu vị trí ban đầu
 local player = game.Players.LocalPlayer
 local humanoidRootPart = player.Character.HumanoidRootPart
 local originalCFrame = humanoidRootPart.CFrame
 
--- Di chuyển đến các vị trí khác với thời gian chờ giảm
 humanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
 wait(0.1) -- giảm thời gian chờ ở đây
 humanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
@@ -82,7 +80,6 @@ humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
 wait(0.1)
 humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
 
--- Trở về vị trí cũ
 wait(0.1)
 humanoidRootPart.CFrame = originalCFrame
 end
