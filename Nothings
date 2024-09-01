@@ -53,19 +53,11 @@ Tab:AddButton({
 wait()
  end
 })
-Tab:AddButton({
-	Name = "mega vip sword",
-	Callback = function()
 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-87.40028381347656, 17633.498046875, 9224.03515625)
-wait()
- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-237.9197235107422, 33.21670913696289, 7.5340495109558105)
-wait(2)
- end
-})
 Tab:AddButton({
 	Name = "get all vip tool",
 	Callback = function()
+
   -- Lưu vị trí ban đầu
 local player = game.Players.LocalPlayer
 local humanoidRootPart = player.Character.HumanoidRootPart
