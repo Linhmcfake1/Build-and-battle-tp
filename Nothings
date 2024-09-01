@@ -30,6 +30,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
 Tab:AddButton({
 	Name = "🍎version 2.2🍎",
 	Callback = function()
+end
+})
 Tab:AddButton({
 	Name = "⚠️exeploit⚠️",
 	Callback = function()
