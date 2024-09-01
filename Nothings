@@ -53,7 +53,7 @@ wait()
 })
 
 Tab:AddButton({
-	Name = "teleport to island",
+	Name = "🏝️teleport to thumbnail island🏝️",
 	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)
 wait()
  end
@@ -90,28 +90,6 @@ humanoidRootPart.CFrame = originalCFrame
 end
 })
 
-Tab:AddButton({
-	Name = "arrow sword (hold normal sword)",
-	Callback = function()
-
-local args = {
-    [1] = "Out"
-}
-
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("3 Sword").GripEvent:FireServer(unpack(args))
-end
-})
-Tab:AddButton({
-	Name = "arrow sword (hold mega vip sword)",
-	Callback = function()
-
-local args = {
-    [1] = "Out"
-}
-
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Mega VIP Sword").GripEvent:FireServer(unpack(args))
-end
-})
 Tab:AddButton({
 	Name = "change hitbox",
 	Callback = function()
@@ -152,7 +130,7 @@ game.StarterGui:SetCore("SendNotification", {
     Title    = "Sword Reach Script Loaded by"; 
     Text     = "You need to hold a tool when executing."; 
     Icon     = ""; 
-    Duration = 40;
+    Duration = 300;
     Callback = bindableFunction;
     Button1  = "made by linhmcfake";  
     Button2  = "alt account: linhmc_new";
