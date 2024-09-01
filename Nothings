@@ -60,7 +60,7 @@ wait()
 })
 
 Tab:AddButton({
-	Name = "get all vip tool",
+	Name = "💎get all vip tool💎",
 	Callback = function()
 
 local player = game.Players.LocalPlayer
@@ -76,13 +76,13 @@ wait()
 humanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
 wait()
 humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
-wait(0.1)
+wait()
 humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
 
 wait(0.1)
