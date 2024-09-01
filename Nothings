@@ -66,29 +66,36 @@ wait(2)
 Tab:AddButton({
 	Name = "get all vip tool",
 	Callback = function()
-  	
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-95.51972198486328, 17633.49609375, 9045.4931640625)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-258.9544677734375, 33.21671676635742, -119.67910766601562)
-wait()
+  -- Lưu vị trí ban đầu
+local player = game.Players.LocalPlayer
+local humanoidRootPart = player.Character.HumanoidRootPart
+local originalCFrame = humanoidRootPart.CFrame
+
+-- Di chuyển đến các vị trí khác với thời gian chờ giảm
+humanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
+wait(0.1) -- giảm thời gian chờ ở đây
+humanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-95.51972198486328, 17633.49609375, 9045.4931640625)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
+wait(0.1)
+humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
+
+-- Trở về vị trí cũ
+wait(0.1)
+humanoidRootPart.CFrame = originalCFrame
 end
 })
+
 Tab:AddButton({
 	Name = "arrow sword (hold normal sword)",
 	Callback = function()
