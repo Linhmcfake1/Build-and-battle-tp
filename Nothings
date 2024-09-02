@@ -51,6 +51,7 @@ Tab:AddButton({
 	Callback = function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
+end
 })
 
 Tab:AddButton({
