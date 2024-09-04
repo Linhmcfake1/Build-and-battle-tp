@@ -28,7 +28,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
   	end    
 })
 Tab:AddButton({
-	Name = "🍎version 2.3🍎",
+	Name = "🏝️version 2.4🏝️",
 	Callback = function()
 end
 })
@@ -47,10 +47,18 @@ loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-1
 })
 
 Tab:AddButton({
-	Name = "kill gui (required touch damage tool)",
+	Name = "kill menu (required touch damage tool)",
 	Callback = function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
+end
+})
+
+Tab:AddButton({
+	Name = "auto farm kill",
+	Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-farm-kill-BAT/main/Auto%20farm%20BAB"))()
 end
 })
 
