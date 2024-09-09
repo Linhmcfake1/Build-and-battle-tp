@@ -46,74 +46,16 @@ loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-1
   	end    
 })
 Tab:AddButton({
+	Name = "flingparts",
+	Callback = function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Linhmcfake1/Flingparts/main/Test'),true))()
+end
+})
+
+Tab:AddButton({
 	Name = "auto heal(beta)",
 	Callback = function()
--- Lua script for continuous teleporting even after death and respawn, with improved event management
-local player = game.Players.LocalPlayer
 
--- Tọa độ cần dịch chuyển đến
-local coordinates = {
-    Vector3.new(-51.743865966796875, 17633.396484375, 9049.763671875),
-    Vector3.new(-75.02651977539062, 17632.578125, 9359.1220703125),
-    Vector3.new(-75.50999450683594, 17632.927734375, 9360.298828125)
-}
-
--- Function to handle teleportation through multiple coordinates
-local function teleportAndReturn(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    local originalPosition = character:WaitForChild("HumanoidRootPart").Position
-
-    -- Freeze camera
-    local camera = game.Workspace.CurrentCamera
-    camera.CameraType = Enum.CameraType.Scriptable
-    camera.CFrame = camera.CFrame -- Giữ camera ở vị trí hiện tại
-
-    -- Dịch chuyển đến từng tọa độ nhanh chóng
-    for _, coord in ipairs(coordinates) do
-        character:SetPrimaryPartCFrame(CFrame.new(coord))
-        task.wait(0.001) -- Giảm thời gian chờ xuống mức tối thiểu để tăng tốc độ
-    end
-
-    -- Dịch chuyển lại về vị trí ban đầu
-    character:SetPrimaryPartCFrame(CFrame.new(originalPosition))
-
-    -- Restore camera to normal
-    camera.CameraType = Enum.CameraType.Custom
-end
-
--- Function to continuously check health
-local function checkHealth(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    local previousHealth = humanoid.Health -- Lưu trữ giá trị máu ban đầu
-
-    while humanoid.Health > 0 do
-        local currentHealth = humanoid.Health
-
-        -- Kiểm tra nếu nhân vật đang sống, mất máu và không hồi máu
-        if currentHealth > 0 and currentHealth < humanoid.MaxHealth and currentHealth < previousHealth then
-            teleportAndReturn(character)
-        end
-
-        -- Cập nhật máu trước đó cho lần kiểm tra tiếp theo
-        previousHealth = currentHealth
-        task.wait(0.05) -- Giảm thời gian chờ để tăng tốc độ kiểm tra
-    end
-end
-
--- Function to handle new character added
-local function onCharacterAdded(character)
-    task.spawn(function()
-        checkHealth(character)
-    end)
-end
-
--- Connect the character added event
-player.CharacterAdded:Connect(onCharacterAdded)
-
--- Call the function immediately if the character already exists
-if player.Character then
-    onCharacterAdded(player.Character)
-end
 end
 })
 
