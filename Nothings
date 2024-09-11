@@ -13,7 +13,7 @@ Tab:AddButton({
 	Callback = function()
 
 local args = {
-    [1] = "SCRIPT BY LINH_NEW",
+    [1] = "SCRIPT BY LINHMC_NEW",
     [2] = "All"
 }
 
