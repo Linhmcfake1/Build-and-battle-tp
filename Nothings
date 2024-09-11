@@ -391,8 +391,3 @@ Tab:AddButton({
 	Callback = function()
 end
 })
-Tab:AddButton({
-	Name = "-you can move hub right now",
-	Callback = function()
-end
-})
