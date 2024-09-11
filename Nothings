@@ -367,7 +367,7 @@ end
 Tab:AddButton({
 	Name = "antikick",
 	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Autorejoin/main/Real?token=GHSAT0AAAAAACWRRW6EGBARU7QIJQOAVI2SZXBTOPQ"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Autorejoin/main/Real"))()
 end
 })
 
