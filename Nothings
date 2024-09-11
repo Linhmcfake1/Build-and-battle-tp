@@ -1,12 +1,6 @@
-local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
 
 local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
-
-local LightingTab = Window:MakeTab({
-    Name = "close gui here",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
 
 local Tab = Window:MakeTab({
 	Name = "Game",
@@ -15,11 +9,11 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddButton({
-	Name = "script by linhmcfake👈",
+	Name = "script by linhmc_new👈",
 	Callback = function()
 
 local args = {
-    [1] = "SCRIPT BY LINHMCFAKE",
+    [1] = "SCRIPT BY LINH_NEW",
     [2] = "All"
 }
 
@@ -28,7 +22,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
   	end    
 })
 Tab:AddButton({
-	Name = "🪐version 2.4🪐",
+	Name = "🏝️UPDATE 2.6🏝️",
 	Callback = function()
 end
 })
@@ -37,14 +31,7 @@ Tab:AddButton({
 	Callback = function()
 end
 })
-Tab:AddButton({
-	Name = "(op) Infinite yield",
-	Callback = function()
 
-loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
-
-  	end    
-})
 Tab:AddButton({
 	Name = "flingparts (beta test)",
 	Callback = function()
@@ -68,7 +55,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "auto farm kill",
+	Name = "auto farm kill (version 1.0)",
 	Callback = function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-farm-kill-BAT/main/Auto%20farm%20BAB"))()
@@ -146,14 +133,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "aimbot(for pvp)",
-	Callback = function()
-loadstring(game:HttpGet("https://rentry.co/n55gmtpi/raw", true))()
-end
-})
-
-Tab:AddButton({
-	Name = "reach (hold your sword before tap this)",
+	Name = "reach (hold your sword before use this)",
 	Callback = function()
 
 game.StarterGui:SetCore("SendNotification", {
@@ -176,19 +156,7 @@ for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
 end
 end
 })
-Tab:AddButton({
-	Name = "delta x keyboard",
-	Callback = function()
 
-loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Delta-keyboard-Crack-15565"))()
-end
-})
-Tab:AddButton({
-	Name = "kawaii best fling",
-	Callback = function()
-loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-KAWAII-FREAKY-FLING-BEST-UNIVERSAL-FLING-17551"))()
-end
-})
 Tab:AddButton({
 	Name = "telekinesis",
 	Callback = function()
@@ -368,9 +336,63 @@ troll.MouseButton1Down:connect(function()
 end)
 end
 })
+local Tab = Window:MakeTab({
+	Name = "others",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
 Tab:AddButton({
-	Name = "Camera shake (beta)",
+	Name = "Infinite yield",
 	Callback = function()
 
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
+
+  	end    
+})
+
+Tab:AddButton({
+	Name = "kawaii best fling",
+	Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-KAWAII-FREAKY-FLING-BEST-UNIVERSAL-FLING-17551"))()
+end
+})
+
+Tab:AddButton({
+	Name = "aimbot(for pvp)",
+	Callback = function()
+loadstring(game:HttpGet("https://rentry.co/n55gmtpi/raw", true))()
+end
+})
+
+Tab:AddButton({
+	Name = "antikick",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Autorejoin/main/Real?token=GHSAT0AAAAAACWRRW6EGBARU7QIJQOAVI2SZXBTOPQ"))()
+end
+})
+
+local Tab = Window:MakeTab({
+	Name = "about",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+Tab:AddButton({
+	Name = "-added some function",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "-fix lag kill gui",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "-new gui",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "-you can move hub right now",
+	Callback = function()
 end
 })
