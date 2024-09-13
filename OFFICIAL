@@ -1,0 +1,393 @@
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
+
+local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "script by linhmc_new👈",
+	Callback = function()
+
+local args = {
+    [1] = "SCRIPT BY LINHMC_NEW",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+
+  	end    
+})
+Tab:AddButton({
+	Name = "🏝️UPDATE 2.6🏝️",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "⚠️exeploit⚠️",
+	Callback = function()
+end
+})
+
+Tab:AddButton({
+	Name = "flingparts (beta test)",
+	Callback = function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Linhmcfake1/Flingparts/main/Test'),true))()
+end
+})
+
+Tab:AddButton({
+	Name = "auto heal (beta test)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-heal/main/BAB"))()
+end
+})
+
+Tab:AddButton({
+	Name = "🔪 kill menu 🔪 (required touch damage tool)",
+	Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
+end
+})
+
+Tab:AddButton({
+	Name = "auto farm kill (version 1.0)",
+	Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-farm-kill-BAT/main/Auto%20farm%20BAB"))()
+end
+})
+
+Tab:AddButton({
+	Name = "teleport to uber vip room",
+	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
+wait()
+ end
+})
+
+Tab:AddButton({
+	Name = "🏝️teleport to thumbnail island🏝️",
+	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)
+wait()
+ end
+})
+
+Tab:AddButton({
+	Name = "💎get all vip tool💎",
+	Callback = function()
+
+local player = game.Players.LocalPlayer
+local humanoidRootPart = player.Character.HumanoidRootPart
+local originalCFrame = humanoidRootPart.CFrame
+
+humanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
+wait() 
+humanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-95.51972198486328, 17633.49609375, 9045.4931640625)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
+wait()
+humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
+
+wait(0.1)
+humanoidRootPart.CFrame = originalCFrame
+end
+})
+
+Tab:AddButton({
+	Name = "change hitbox",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/HitboxExpander.lua"))()
+end
+})
+
+Tab:AddButton({
+	Name = "get 475 point (need change server in second time)",
+	Callback = function()
+
+-- Lưu lại vị trí ban đầu của HumanoidRootPart
+local originalPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-65.8681411743164, 17634.498046875, 9359.7236328125)
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.600982666015625, 17634.498046875, 9227.1826171875)
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.66141891479492, 17634.49609375, 9048.8037109375)
+wait()
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = originalPosition
+end
+})
+
+Tab:AddButton({
+	Name = "reach (hold your sword before use this)",
+	Callback = function()
+
+game.StarterGui:SetCore("SendNotification", {
+    Title    = "Sword Reach Script Loaded by"; 
+    Text     = "You need to hold a tool when executing."; 
+    Icon     = ""; 
+    Duration = 300;
+    Callback = bindableFunction;
+    Button1  = "made by linhmcfake";  
+    Button2  = "alt account: linhmc_new";
+})
+for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
+                if v:isA("Tool") then
+                    local a = Instance.new("SelectionBox",v.Handle)
+                    a.Adornee = v.Handle
+                    v.Handle.Size = Vector3.new(0.5,0.5,60)
+                    v.GripPos = Vector3.new(0,0,0)
+                    lplayer.Character.Humanoid:UnequipTools()
+                end
+end
+end
+})
+
+Tab:AddButton({
+	Name = "telekinesis",
+	Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Telekinesis-12332"))()
+end
+})
+Tab:AddButton({
+	Name = "----------🍎🔥better gameplay🔥☄️🍎----------",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "pshade (shader)",
+	Callback = function()
+
+getgenv().RTX_Name = "rtxnamehere" --not really needed if you don't need it
+
+--[[
+examples auto loads features :
+
+
+getgenv().RTX_Name = "Midday lite" 
+
+-Morning
+-Afternoon
+-Midday
+-Evening
+-Night
+-Midnight
+
+-Morning lite
+-Midday lite
+-Afternoon lite
+-Evening lite
+-Night lite
+-Midnight lite
+
+]]
+
+loadstring(game:HttpGet(('https://pastefy.app/xXkUxA0P/raw'),true))()
+end
+})
+Tab:AddButton({
+	Name = "pov changer",
+	Callback = function()
+-- Instances:
+ 
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local title = Instance.new("TextLabel")
+local emotes = Instance.new("TextButton")
+local vynixu = Instance.new("TextButton")
+local ludicity = Instance.new("TextButton")
+local eclipse = Instance.new("TextButton")
+local god = Instance.new("TextButton")
+local troll = Instance.new("TextButton")
+ 
+--Properties:
+ 
+ScreenGui.Parent = game.CoreGui
+ 
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+main.BackgroundTransparency = 0.300
+main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+main.Position = UDim2.new(0.0163098853, 0, 0.319767386, 0)
+main.Size = UDim2.new(0, 212, 0, 251)
+main.Active = true
+main.Draggable = true
+ 
+title.Name = "title"
+title.Parent = main
+title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+title.BorderSizePixel = 0
+title.Position = UDim2.new(-1.1920929e-07, 0, 0, 0)
+title.Size = UDim2.new(0, 212, 0, 22)
+title.Font = Enum.Font.Cartoon
+title.Text = "change your fov here"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 14.000
+ 
+emotes.Name = "emotes"
+emotes.Parent = main
+emotes.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+emotes.BackgroundTransparency = 0.300
+emotes.BorderColor3 = Color3.fromRGB(255, 255, 255)
+emotes.Position = UDim2.new(0.0566037744, 0, 0.843250215, 0)
+emotes.Size = UDim2.new(0, 187, 0, 22)
+emotes.Font = Enum.Font.Cartoon
+emotes.Text = "Fov.20"
+emotes.TextColor3 = Color3.fromRGB(255, 255, 255)
+emotes.TextSize = 14.000
+emotes.TextWrapped = true
+emotes.MouseButton1Down:connect(function()
+  workspace.CurrentCamera.FieldOfView = 20 
+end)
+ 
+vynixu.Name = "vynixu"
+vynixu.Parent = main
+vynixu.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+vynixu.BackgroundTransparency = 0.300
+vynixu.BorderColor3 = Color3.fromRGB(255, 255, 255)
+vynixu.Position = UDim2.new(0.0566037744, 0, 0.13348788, 0)
+vynixu.Size = UDim2.new(0, 187, 0, 22)
+vynixu.Font = Enum.Font.Cartoon
+vynixu.Text = "Fov.120"
+vynixu.TextColor3 = Color3.fromRGB(255, 255, 255)
+vynixu.TextSize = 14.000
+vynixu.TextWrapped = true
+vynixu.MouseButton1Down:connect(function()
+    workspace.CurrentCamera.FieldOfView = 120
+end)
+ 
+ludicity.Name = "ludicity"
+ludicity.Parent = main
+ludicity.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ludicity.BackgroundTransparency = 0.300
+ludicity.BorderColor3 = Color3.fromRGB(255, 255, 255)
+ludicity.Position = UDim2.new(0.0566037744, 0, 0.280969203, 0)
+ludicity.Size = UDim2.new(0, 187, 0, 22)
+ludicity.Font = Enum.Font.Cartoon
+ludicity.Text = "Fov.100"
+ludicity.TextColor3 = Color3.fromRGB(255, 255, 255)
+ludicity.TextSize = 14.000
+ludicity.TextWrapped = true
+ludicity.MouseButton1Down:connect(function()
+   workspace.CurrentCamera.FieldOfView = 100
+end)
+ 
+eclipse.Name = "eclipse"
+eclipse.Parent = main
+eclipse.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+eclipse.BackgroundTransparency = 0.300
+eclipse.BorderColor3 = Color3.fromRGB(255, 255, 255)
+eclipse.Position = UDim2.new(0.0566037744, 0, 0.428859621, 0)
+eclipse.Size = UDim2.new(0, 187, 0, 22)
+eclipse.Font = Enum.Font.Cartoon
+eclipse.Text = "Fov.80"
+eclipse.TextColor3 = Color3.fromRGB(255, 255, 255)
+eclipse.TextSize = 14.000
+eclipse.TextWrapped = true
+eclipse.MouseButton1Down:connect(function()
+ workspace.CurrentCamera.FieldOfView = 80
+end)
+ 
+god.Name                   = "god"
+god.Parent                 = main
+god.BackgroundColor3       = Color3.fromRGB(0, 0, 0)
+god.BackgroundTransparency = 0.300
+god.BorderColor3           = Color3.fromRGB(255, 255, 255)
+god.Position               = UDim2.new(0.0566037744, 0, 0.566901684, 0)
+god.Size                   = UDim2.new(0, 187, 0, 22)
+god.Font                   = Enum.Font.Cartoon
+god.Text                   = "Fov.60"
+god.TextColor3             = Color3.fromRGB(255, 255, 255)
+god.TextSize               = 14.000
+god.TextWrapped            = true
+god.MouseButton1Down:connect(function()
+   workspace.CurrentCamera.FieldOfView = 60
+end)
+ 
+troll.Name = "troll"
+troll.Parent = main
+troll.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+troll.BackgroundTransparency = 0.300
+troll.BorderColor3 = Color3.fromRGB(255, 255, 255)
+troll.Position = UDim2.new(0.0566037744, 0, 0.708927751, 0)
+troll.Size = UDim2.new(0, 187, 0, 22)
+troll.Font = Enum.Font.Cartoon
+troll.Text = "Fov.40"
+troll.TextColor3 = Color3.fromRGB(255, 255, 255)
+troll.TextSize = 14.000
+troll.TextWrapped = true
+troll.MouseButton1Down:connect(function()
+   workspace.CurrentCamera.FieldOfView = 40
+end)
+end
+})
+local Tab = Window:MakeTab({
+	Name = "others",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+Tab:AddButton({
+	Name = "Infinite yield",
+	Callback = function()
+
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
+
+  	end    
+})
+
+Tab:AddButton({
+	Name = "kawaii best fling",
+	Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-KAWAII-FREAKY-FLING-BEST-UNIVERSAL-FLING-17551"))()
+end
+})
+
+Tab:AddButton({
+	Name = "aimbot(for pvp)",
+	Callback = function()
+loadstring(game:HttpGet("https://rentry.co/n55gmtpi/raw", true))()
+end
+})
+
+Tab:AddButton({
+	Name = "antikick",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Autorejoin/main/Real"))()
+end
+})
+
+local Tab = Window:MakeTab({
+	Name = "about",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+Tab:AddButton({
+	Name = "-added some function",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "-fix lag kill gui",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "-new gui",
+	Callback = function()
+end
+})
