@@ -57,14 +57,14 @@ end
 Tab:AddButton({
 	Name = "🔴 AURA 🔴 (version 1.0)",
 	Callback = function()
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/main/Aura"))()
 end
 })
 
 Tab:AddButton({
 	Name = "teleport to uber vip room",
-	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
+	Callback = function()   
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
 wait()
  end
 })
