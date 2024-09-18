@@ -1,0 +1,112 @@
+--//Services\\--
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LPlayer = Players.LocalPlayer
+local Mouse = LPlayer:GetMouse()
+
+--//Variables\\--
+local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+local StampAsset = Remotes:WaitForChild("StampAsset")
+local DeleteAsset = Remotes:WaitForChild("DeleteAsset")
+
+local ActiveParts
+local Plates = Workspace:WaitForChild("Plates")
+local LPlate
+local MSpikes = {}
+local Aura
+local Blacklist = {}
+
+-- Tìm Plate của người chơi
+for _, Plate in pairs(Plates:GetChildren()) do
+    if Plate:FindFirstChild("Owner") and Plate.Owner.Value == LPlayer then
+        LPlate = Plate:FindFirstChild("Plate")
+        ActiveParts = Plate:FindFirstChild("ActiveParts")
+        break
+    end
+end
+
+-- Cập nhật danh sách MSpikes khi Block mới được thêm vào
+ActiveParts.ChildAdded:Connect(function(Block)
+    if Block.Name == "Spikes - Moving" then
+        local MSpike = Block:WaitForChild("Spike_Retracting"):WaitForChild("Spikes")
+        table.insert(MSpikes, MSpike)
+        Block.AncestryChanged:Wait()
+        if not Block.Parent then
+            table.remove(MSpikes, table.find(MSpikes, MSpike))
+        end
+    end
+end)
+
+local Module = {}
+
+function Module.CreateSpike(CF, Weld)
+    return StampAsset:InvokeServer(41324903, CF, "{bf0c5c8b-6f25-4321-9251-300beb818121}", Weld or {}, 0)
+end
+
+function Module.CreateMSpike(CF, Weld)
+    return StampAsset:InvokeServer(41324904, CF, "{fca81e11-1ead-4817-afde-4dc29e72ea1b}", Weld or {}, 0)
+end
+
+function Module.Weld(...)
+    StampAsset:InvokeServer(
+        56451715,
+        LPlate.CFrame + Vector3.new(0, 200, 0),
+        "{3ae31e60-5cd0-4d80-96b6-a1dd894ece8a}",
+        {...},
+        0
+    )
+end
+
+function Module.Hang(Part)
+    Module.CreateMSpike(
+        (LPlate.CFrame * CFrame.fromEulerAnglesXYZ(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360)))) - Vector3.new(0, -5, 0),
+        {LPlate}
+    )
+    Module.Weld(Part, MSpikes[#MSpikes])
+end
+
+function Module.DestroyAura(Radius)
+    if Aura then Aura:Destroy() end
+    Radius = Vector3.new(Radius, Radius, Radius)
+    local Hrp = LPlayer.Character and LPlayer.Character.PrimaryPart or nil
+    if not Hrp then return end
+    local Weld = Instance.new("Weld", Hrp)
+    Aura = Instance.new("Part", Workspace) -- Thay đổi: Gắn Aura vào Workspace thay vì nhân vật
+    Aura.Size = Radius
+    Aura.Massless = true
+    Aura.Transparency = 0
+    Aura.Material = Enum.Material.ForceField
+    Aura.Color = Color3.new(1, 0, 0)
+    Aura.CanCollide = false
+    Aura.Shape = Enum.PartType.Ball
+    Aura.Touched:Connect(function(Part)
+        if Blacklist[Part] or Part.Anchored then return end
+        if Part.CFrame.Y <= LPlate.CFrame.Y + 4 then return end
+        if Part:IsDescendantOf(LPlayer.Character) then return end
+        Blacklist[Part] = true
+        Module.Hang(Part)
+    end)
+    Weld.Part0 = Hrp
+    Weld.Part1 = Aura
+end
+
+-- Đảm bảo Aura được tạo lại sau khi người chơi hồi sinh
+LPlayer.CharacterAdded:Connect(function(Character)
+    Character:WaitForChild("HumanoidRootPart") -- Đợi đến khi nhân vật hoàn tất tải
+    Module.DestroyAura(20) -- Tạo lại Aura sau khi nhân vật hồi sinh
+end)
+
+-- Tự động kích hoạt DestroyAura khi script bắt đầu
+if LPlayer.Character then
+    Module.DestroyAura(20)
+end
+
+UserInputService.InputBegan:Connect(function(InputObject, Processed)
+    if Processed then return end
+    if InputObject.KeyCode == Enum.KeyCode.T then
+        if Aura then Aura:Destroy() end
+        Aura = nil
+    end
+end)
