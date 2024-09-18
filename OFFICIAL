@@ -22,7 +22,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
   	end    
 })
 Tab:AddButton({
-	Name = "🏝️UPDATE 2.6🏝️",
+	Name = "🏝️UPDATE 2.9🏝️",
 	Callback = function()
 end
 })
