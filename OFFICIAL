@@ -55,11 +55,10 @@ end
 })
 
 Tab:AddButton({
-	Name = "auto farm kill (version 1.0)",
+	Name = "🔴 AURA 🔴 (version 1.0)",
 	Callback = function()
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-farm-kill-BAT/main/Auto%20farm%20BAB"))()
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/main/Aura"))()
 })
 
 Tab:AddButton({
