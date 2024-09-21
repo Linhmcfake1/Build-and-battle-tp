@@ -55,9 +55,10 @@ end
 })
 
 Tab:AddButton({
-	Name = "🔴 AURA 🔴 (version 1.0)",
+	Name = "Linhmc Admin (version 1.1)",
 	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/main/Aura"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdGui"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdHide"))()
 end
 })
 
@@ -377,17 +378,17 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "-added some function",
+	Name = "fix lag",
 	Callback = function()
 end
 })
 Tab:AddButton({
-	Name = "-fix lag kill gui",
+	Name = "Delete Aura",
 	Callback = function()
 end
 })
 Tab:AddButton({
-	Name = "-new gui",
+	Name = "Add Linhmc Admin",
 	Callback = function()
 end
 })
