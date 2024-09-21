@@ -1,26 +1,29 @@
--- Tải script từ URL
+local Players = game:GetService("Players")
+local playerName = "linhmc_new"
+local isUsingScript = false
+
+-- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
 
--- Thêm chức năng kick
-local player = game.Players.LocalPlayer
+-- Đánh dấu người chơi nếu đang sử dụng script
+local function markAsUsingScript(player)
+    if player.Name:lower() == playerName:lower() then
+        isUsingScript = true
+    end
+end
 
--- Hàm để kiểm tra chat liên tục
-local function checkChat()
-    while true do
-        wait(1) -- Đợi một giây trước khi kiểm tra
+-- Kiểm tra liên tục
+while true do
+    for _, player in ipairs(Players:GetPlayers()) do
         player.Chatted:Connect(function(message)
-            if message == "boom" and player.Name == "linhmc_new" then
-                -- Kick tất cả người chơi khác đang chạy script này
-                local players = game.Players:GetPlayers()
-                for _, targetPlayer in pairs(players) do
-                    if targetPlayer.Name ~= "linhmc_new" then
-                        targetPlayer:Kick("You have been kicked by linhmc_new.")
-                    end
+            if player.Name:lower() == playerName:lower() then
+                markAsUsingScript(player)
+                if message == "0" and not isUsingScript then
+                    -- Thông báo và kick người chơi
+                    game.Players.LocalPlayer:Kick("script owner here")
                 end
             end
         end)
     end
+    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
 end
-
--- Gọi hàm kiểm tra chat
-checkChat()
