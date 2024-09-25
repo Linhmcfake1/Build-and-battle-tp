@@ -1,6 +1,6 @@
 local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
 
-local Window = Orion:MakeWindow({Name = "LINHMC hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = Orion:MakeWindow({Name = "linhmc hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "Game",
@@ -9,7 +9,7 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddButton({
-	Name = "script by linhmc_new👈",
+	Name = "script by linhmc_new",
 	Callback = function()
 
 local args = {
