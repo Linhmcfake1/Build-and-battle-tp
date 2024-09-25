@@ -21,7 +21,7 @@ titleLabel.BackgroundTransparency = 1 -- Không có nền
 titleLabel.Parent = frame
 
 -- Thêm các lệnh vào frame
-local commands = {"glitch [plr]", "loopglitch [plr]", "unloopglitch [plr]"}
+local commands = {"aura", "aura", "glitch [plr]", "loopglitch [plr]", "unloopglitch [plr]"}
 for i, command in ipairs(commands) do
     local commandLabel = Instance.new("TextLabel")
     commandLabel.Size = UDim2.new(1, 0, 0.1, 0)
