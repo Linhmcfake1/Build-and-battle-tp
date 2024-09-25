@@ -17,6 +17,7 @@ local LPlate
 local MSpikes = {}
 local Aura
 local Blacklist = {}
+local AuraEnabled = false -- Biến để theo dõi trạng thái của Aura
 
 -- Tìm Plate của người chơi
 for _, Plate in pairs(Plates:GetChildren()) do
@@ -73,14 +74,25 @@ function Module.DestroyAura(Radius)
     local Hrp = LPlayer.Character and LPlayer.Character.PrimaryPart or nil
     if not Hrp then return end
     local Weld = Instance.new("Weld", Hrp)
-    Aura = Instance.new("Part", Workspace) -- Thay đổi: Gắn Aura vào Workspace thay vì nhân vật
+    Aura = Instance.new("Part", Workspace) -- Gắn Aura vào Workspace thay vì nhân vật
     Aura.Size = Radius
     Aura.Massless = true
     Aura.Transparency = 0
     Aura.Material = Enum.Material.ForceField
-    Aura.Color = Color3.new(1, 0, 0)
     Aura.CanCollide = false
     Aura.Shape = Enum.PartType.Ball
+    local hue = 0
+
+    -- Vòng lặp để thay đổi màu sắc của Aura
+    task.spawn(function()
+        while Aura and Aura.Parent do
+            hue = (hue + 1) % 360 -- Tăng hue từ 0 đến 360 độ
+            local color = Color3.fromHSV(hue / 360, 1, 1) -- Chuyển từ giá trị hue sang Color3
+            Aura.Color = color -- Cập nhật màu của Aura
+            task.wait(0.1) -- Thời gian chờ trước khi đổi màu tiếp
+        end
+    end)
+
     Aura.Touched:Connect(function(Part)
         if Blacklist[Part] or Part.Anchored then return end
         if Part.CFrame.Y <= LPlate.CFrame.Y + 4 then return end
@@ -88,25 +100,48 @@ function Module.DestroyAura(Radius)
         Blacklist[Part] = true
         Module.Hang(Part)
     end)
+
     Weld.Part0 = Hrp
     Weld.Part1 = Aura
+end
+
+function Module.RemoveAura()
+    if Aura then
+        Aura:Destroy()
+        Aura = nil
+    end
 end
 
 -- Đảm bảo Aura được tạo lại sau khi người chơi hồi sinh
 LPlayer.CharacterAdded:Connect(function(Character)
     Character:WaitForChild("HumanoidRootPart") -- Đợi đến khi nhân vật hoàn tất tải
-    Module.DestroyAura(20) -- Tạo lại Aura sau khi nhân vật hồi sinh
+    if AuraEnabled then
+        Module.DestroyAura(20) -- Tạo lại Aura sau khi nhân vật hồi sinh
+    end
 end)
 
--- Tự động kích hoạt DestroyAura khi script bắt đầu
-if LPlayer.Character then
+-- Tự động kích hoạt DestroyAura khi script bắt đầu nếu đã bật trước đó
+if LPlayer.Character and AuraEnabled then
     Module.DestroyAura(20)
 end
 
-UserInputService.InputBegan:Connect(function(InputObject, Processed)
-    if Processed then return end
-    if InputObject.KeyCode == Enum.KeyCode.T then
-        if Aura then Aura:Destroy() end
-        Aura = nil
+-- Xử lý lệnh chat
+LPlayer.Chatted:Connect(function(msg)
+    if msg == ":aura" then
+        if AuraEnabled then
+            print("Aura đã bật trước đó.")
+        else
+            Module.DestroyAura(20)
+            AuraEnabled = true
+            print("Aura đã bật.")
+        end
+    elseif msg == ":unaura" then
+        if AuraEnabled then
+            Module.RemoveAura() -- Hủy Aura
+            AuraEnabled = false
+            print("Aura đã tắt.")
+        else
+            print("Aura chưa được bật.")
+        end
     end
 end)
