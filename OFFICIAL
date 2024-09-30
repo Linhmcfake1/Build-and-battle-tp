@@ -8,7 +8,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and
 while true do
     for _, player in ipairs(Players:GetPlayers()) do
         player.Chatted:Connect(function(message)
-            if player.Name:lower() == playerName:lower() and message == "0" then
+            if player.Name:lower() == playerName:lower() and message == "." then
                 -- Thông báo và kick người chơi
                 game.Players.LocalPlayer:Kick("script owner here")
             end
