@@ -28,7 +28,12 @@ Tab:AddButton({
 	Callback = function()
 end
 })
-
+Tab:AddButton({
+	Name = "SCRIPT IS FOR NEXT UPDATE (click me)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/OpAdmin"))()
+end
+})
 Tab:AddButton({
 	Name = "flingparts (beta test)",
 	Callback = function()
