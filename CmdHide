@@ -1,79 +1,4 @@
--- Nếu đã có script trước đó đang chạy, thì sẽ hiển thị bảng hỏi người dùng có muốn reset hay không.
-if _G.GlitchScriptRunning then
-    -- Tạo GUI nếu không tồn tại
-    if not _G.ResetCommandUI then
-        local ScreenGui = Instance.new("ScreenGui")
-        ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-        ScreenGui.Name = "ResetCommandUI"
-        
-        local Frame = Instance.new("Frame")
-        Frame.Size = UDim2.new(0, 300, 0, 150)
-        Frame.Position = UDim2.new(0.5, -150, 0.5, -75)
-        Frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-        Frame.Parent = ScreenGui
-        
-        local TextLabel = Instance.new("TextLabel")
-        TextLabel.Size = UDim2.new(1, 0, 0.5, 0)
-        TextLabel.Position = UDim2.new(0, 0, 0, 0)
-        TextLabel.BackgroundTransparency = 1
-        TextLabel.Text = "Are you sure you want to turn off Linh Admin?"
-        TextLabel.TextColor3 = Color3.new(1, 1, 1)
-        TextLabel.Font = Enum.Font.SourceSansBold
-        TextLabel.TextScaled = true
-        TextLabel.Parent = Frame
-        
-        local YesButton = Instance.new("TextButton")
-        YesButton.Size = UDim2.new(0.4, 0, 0.3, 0)
-        YesButton.Position = UDim2.new(0.1, 0, 0.6, 0)
-        YesButton.BackgroundColor3 = Color3.new(0.4, 0.8, 0.4)
-        YesButton.Text = "Yes"
-        YesButton.TextColor3 = Color3.new(1, 1, 1)
-        YesButton.Font = Enum.Font.SourceSansBold
-        YesButton.TextScaled = true
-        YesButton.Parent = Frame
-        
-        local NoButton = Instance.new("TextButton")
-        NoButton.Size = UDim2.new(0.4, 0, 0.3, 0)
-        NoButton.Position = UDim2.new(0.5, 0, 0.6, 0)
-        NoButton.BackgroundColor3 = Color3.new(0.8, 0.4, 0.4)
-        NoButton.Text = "No, thank"
-        NoButton.TextColor3 = Color3.new(1, 1, 1)
-        NoButton.Font = Enum.Font.SourceSansBold
-        NoButton.TextScaled = true
-        NoButton.Parent = Frame
-        
-        -- Hành động khi nhấn Yes
-        YesButton.MouseButton1Click:Connect(function()
-            _G.GlitchScriptRunning = false
-            if _G.GlitchCleanup then
-                _G.GlitchCleanup() -- Gọi hàm dọn dẹp nếu có
-            end
-            ScreenGui:Destroy() -- Hủy GUI
-            _G.ResetCommandUI = nil
-            wait(0.1) -- Thời gian chờ ngắn để đảm bảo script cũ bị tắt hoàn toàn
-            
-            -- Khởi động lại script mới
-            loadstring(game:HttpGet("URL_CUA_SCRIPT_MOI", true))() -- Thay "URL_CUA_SCRIPT_MOI" bằng URL thực tế của script mới
-        end)
-        
-        -- Hành động khi nhấn No, thank
-        NoButton.MouseButton1Click:Connect(function()
-            ScreenGui:Destroy() -- Hủy GUI
-            _G.ResetCommandUI = nil
-        end)
-        
-        -- Lưu tham chiếu GUI để sử dụng sau
-        _G.ResetCommandUI = ScreenGui
-    end
-    
-    return -- Dừng script nếu script cũ vẫn đang chạy và người dùng chưa đưa ra lựa chọn
-end
 
--- Đặt biến báo hiệu script đang chạy
-_G.GlitchScriptRunning = true
-
--- Đoạn mã phía dưới sẽ là phần script chính của bạn và không cần thay đổi:
---//Services\\--
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
@@ -81,17 +6,10 @@ local LPlayer = Players.LocalPlayer
 local ChatService = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
 local Mouse = LPlayer:GetMouse()
 
---//Variables\\--
-local Remotes = ReplicatedStorage:WaitForChild("Remotes")
-local StampAsset = Remotes:WaitForChild("StampAsset")
-local DeleteAsset = Remotes:WaitForChild("DeleteAsset")
-
-local ActiveParts
+-- Tìm Plate của người chơi
 local Plates = Workspace:WaitForChild("Plates")
 local LPlate
-local MSpikes = {}
-
--- Tìm Plate của người chơi
+local ActiveParts
 for _, Plate in pairs(Plates:GetChildren()) do
     if Plate:FindFirstChild("Owner") and Plate.Owner.Value == LPlayer then
         LPlate = Plate:FindFirstChild("Plate")
@@ -100,7 +18,7 @@ for _, Plate in pairs(Plates:GetChildren()) do
     end
 end
 
--- Cập nhật danh sách MSpikes khi Block mới được thêm vào
+local MSpikes = {}
 ActiveParts.ChildAdded:Connect(function(Block)
     if Block.Name == "Spikes - Moving" then
         local MSpike = Block:WaitForChild("Spike_Retracting"):WaitForChild("Spikes")
@@ -115,15 +33,15 @@ end)
 local Module = {}
 
 function Module.CreateSpike(CF, Weld)
-    return StampAsset:InvokeServer(41324903, CF, "{bf0c5c8b-6f25-4321-9251-300beb818121}", Weld or {}, 0)
+    return ReplicatedStorage.Remotes.StampAsset:InvokeServer(41324903, CF, "{bf0c5c8b-6f25-4321-9251-300beb818121}", Weld or {}, 0)
 end
 
 function Module.CreateMSpike(CF, Weld)
-    return StampAsset:InvokeServer(41324904, CF, "{fca81e11-1ead-4817-afde-4dc29e72ea1b}", Weld or {}, 0)
+    return ReplicatedStorage.Remotes.StampAsset:InvokeServer(41324904, CF, "{fca81e11-1ead-4817-afde-4dc29e72ea1b}", Weld or {}, 0)
 end
 
 function Module.Weld(...)
-    StampAsset:InvokeServer(
+    ReplicatedStorage.Remotes.StampAsset:InvokeServer(
         56451715,
         LPlate.CFrame + Vector3.new(0, 200, 0),
         "{3ae31e60-5cd0-4d80-96b6-a1dd894ece8a}",
@@ -140,7 +58,7 @@ function Module.Hang(Part)
     Module.Weld(Part, MSpikes[#MSpikes])
 end
 
--- Hàm nhận diện player theo username hoặc display name
+-- Hàm tìm player theo tên hoặc display name
 function FindPlayerByName(Name)
     for _, Player in pairs(Players:GetPlayers()) do
         if string.find(string.lower(Player.Name), string.lower(Name)) or string.find(string.lower(Player.DisplayName), string.lower(Name)) then
@@ -158,16 +76,17 @@ local function StopAllLoops()
     end
 end
 
--- Hàm khôi phục trạng thái looping cho người chơi mới
+-- Hàm khôi phục loop cho người chơi
 local function RestoreLoopForPlayer(player)
     if loopGlitchActive[player.Name] then
         spawn(function()
             while loopGlitchActive[player.Name] and _G.GlitchScriptRunning do
+                -- Lấy HumanoidRootPart của người chơi bất kể họ đang ngồi hay không
                 local targetPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
                 if targetPart then
-                    Module.Hang(targetPart)
+                    Module.Hang(targetPart) -- Áp dụng hàm Hang lên HumanoidRootPart
                 end
-                wait(1) -- Điều chỉnh thời gian lặp lại tùy theo yêu cầu
+                wait(0.5) -- Giảm thời gian lặp lại xuống 0.5 giây
             end
         end)
     end
@@ -189,6 +108,7 @@ ChatService.OnMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
                 local targetPlayer = FindPlayerByName(targetName)
                 
                 if targetPlayer then
+                    -- Luôn luôn lấy HumanoidRootPart của mục tiêu
                     local targetPart = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
                     if targetPart then
                         Module.Hang(targetPart)
@@ -209,7 +129,7 @@ ChatService.OnMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
                 if targetPlayer then
                     if not loopGlitchActive[targetPlayer.Name] then
                         loopGlitchActive[targetPlayer.Name] = true
-                        RestoreLoopForPlayer(targetPlayer) -- Bắt đầu loop cho người chơi
+                        RestoreLoopForPlayer(targetPlayer)
                     end
                 else
                     print("Không tìm thấy người chơi.")
@@ -235,14 +155,6 @@ end)
 -- Theo dõi sự kiện PlayerAdded
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function()
-        RestoreLoopForPlayer(player) -- Khôi phục loop khi người chơi tham gia lại
+        RestoreLoopForPlayer(player)
     end)
 end)
-
--- Hàm dọn dẹp để hủy tất cả hiệu ứng khi script cũ bị xoá
-_G.GlitchCleanup = function()
-    _G.GlitchScriptRunning = false
-    StopAllLoops() -- Dừng tất cả các vòng lặp hiện tại
-    loopGlitchActive = {} -- Reset trạng thái loop cho tất cả người chơi
-    print("Script cũ đã bị hủy.")
-end
