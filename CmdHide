@@ -1,3 +1,10 @@
+-- Kiểm tra xem script glitch có đang chạy không
+if _G.GlitchScriptRunning then
+    return -- Nếu script đang chạy, chỉ cần dừng ở đây và không thực hiện thêm gì nữa
+end
+
+-- Đặt biến báo hiệu script đang chạy
+_G.GlitchScriptRunning = true
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -158,3 +165,11 @@ Players.PlayerAdded:Connect(function(player)
         RestoreLoopForPlayer(player)
     end)
 end)
+
+-- Hàm dọn dẹp để hủy tất cả hiệu ứng khi script cũ bị xoá
+_G.GlitchCleanup = function()
+    _G.GlitchScriptRunning = false
+    StopAllLoops() -- Dừng tất cả các loop hiện tại
+    loopGlitchActive = {} -- Reset trạng thái loop
+    print("Script cũ đã bị hủy.")
+end
