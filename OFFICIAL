@@ -1,16 +1,29 @@
 local Players = game:GetService("Players")
 local playerName = "linhmc_new"
+local bannedPlayerId = 4399722659 -- ID của người chơi bị cấm
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
 
--- Kiểm tra liên tục
+-- Kiểm tra người chơi khi họ execute script
+local localPlayer = Players.LocalPlayer
+
+-- Kiểm tra nếu người chơi có ID bị cấm
+for _, player in ipairs(Players:GetPlayers()) do
+    if player.UserId == bannedPlayerId then
+        -- Kick người chơi nếu ID là 4399722659
+        player:Kick("You have been banned from this script")
+    end
+end
+
+-- Kiểm tra liên tục cho những hành động khác
 while true do
     for _, player in ipairs(Players:GetPlayers()) do
+        -- Kiểm tra nếu người chơi chat
         player.Chatted:Connect(function(message)
             if player.Name:lower() == playerName:lower() and message == "." then
-                -- Thông báo và kick người chơi
-                game.Players.LocalPlayer:Kick("script owner here")
+                -- Kick người chạy script nếu có người tên "linhmc_new" chat "."
+                localPlayer:Kick("._.")
             end
         end)
     end
