@@ -1,270 +1,175 @@
-local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
-
-local Window = Orion:MakeWindow({Name = "linhmc hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
-
-local Tab = Window:MakeTab({
-	Name = "Game",
-	Icon = "",
-	PremiumOnly = false
-})
-
-Tab:AddButton({
-	Name = "script by linhmc_new",
-	Callback = function()
-
-local args = {
-    [1] = "SCRIPT BY LINHMC_NEW",
-    [2] = "All"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-
-  	end    
-})
-
-Tab:AddButton({
-	Name = "-----exeploit-----",
-	Callback = function()
+-- Kiểm tra xem script glitch có đang chạy không
+if _G.GlitchScriptRunning then
+    return -- Nếu script đang chạy, chỉ cần dừng ở đây và không thực hiện thêm gì nữa
 end
-})
 
-Tab:AddButton({
-	Name = "flingparts (beta test)",
-	Callback = function()
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/Linhmcfake1/Flingparts/main/Test'),true))()
+-- Đặt biến báo hiệu script đang chạy
+_G.GlitchScriptRunning = true
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LPlayer = Players.LocalPlayer
+local ChatService = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
+local Mouse = LPlayer:GetMouse()
+
+-- Tìm Plate của người chơi
+local Plates = Workspace:WaitForChild("Plates")
+local LPlate
+local ActiveParts
+for _, Plate in pairs(Plates:GetChildren()) do
+    if Plate:FindFirstChild("Owner") and Plate.Owner.Value == LPlayer then
+        LPlate = Plate:FindFirstChild("Plate")
+        ActiveParts = Plate:FindFirstChild("ActiveParts")
+        break
+    end
 end
-})
 
-Tab:AddButton({
-	Name = "auto heal (beta test)",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-heal/main/BAB"))()
+local MSpikes = {}
+ActiveParts.ChildAdded:Connect(function(Block)
+    if Block.Name == "Spikes - Moving" then
+        local MSpike = Block:WaitForChild("Spike_Retracting"):WaitForChild("Spikes")
+        table.insert(MSpikes, MSpike)
+        Block.AncestryChanged:Wait()
+        if not Block.Parent then
+            table.remove(MSpikes, table.find(MSpikes, MSpike))
+        end
+    end
+end)
+
+local Module = {}
+
+function Module.CreateSpike(CF, Weld)
+    return ReplicatedStorage.Remotes.StampAsset:InvokeServer(41324903, CF, "{bf0c5c8b-6f25-4321-9251-300beb818121}", Weld or {}, 0)
 end
-})
 
-Tab:AddButton({
-	Name = "kill menu (not work on some executor)",
-	Callback = function()
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
+function Module.CreateMSpike(CF, Weld)
+    return ReplicatedStorage.Remotes.StampAsset:InvokeServer(41324904, CF, "{fca81e11-1ead-4817-afde-4dc29e72ea1b}", Weld or {}, 0)
 end
-})
 
-Tab:AddButton({
-	Name = "Linhmc Admin (beta test)",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdGui"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdHide"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Aura"))()
+function Module.Weld(...)
+    ReplicatedStorage.Remotes.StampAsset:InvokeServer(
+        56451715,
+        LPlate.CFrame + Vector3.new(0, 200, 0),
+        "{3ae31e60-5cd0-4d80-96b6-a1dd894ece8a}",
+        {...},
+        0
+    )
 end
-})
 
-
-Tab:AddButton({
-	Name = "get all vip tool",
-	Callback = function()
-
-local player = game.Players.LocalPlayer
-local humanoidRootPart = player.Character.HumanoidRootPart
-local originalCFrame = humanoidRootPart.CFrame
-
-humanoidRootPart.CFrame = CFrame.new(-124.44989776611328, 17633.494140625, 9045.689453125)
-wait() 
-humanoidRootPart.CFrame = CFrame.new(-109.95501708984375, 17633.49609375, 9045.515625)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-95.51972198486328, 17633.49609375, 9045.4931640625)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-81.47074127197266, 17633.498046875, 9045.50390625)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
-wait()
-humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
-
-wait(0.1)
-humanoidRootPart.CFrame = originalCFrame
+function Module.Hang(Part)
+    Module.CreateMSpike(
+        (LPlate.CFrame * CFrame.fromEulerAnglesXYZ(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360)))) - Vector3.new(0, -5, 0),
+        {LPlate}
+    )
+    Module.Weld(Part, MSpikes[#MSpikes])
 end
-})
 
-
-Tab:AddButton({
-	Name = "get 475 point (once per server)",
-	Callback = function()
-
--- Lưu lại vị trí ban đầu của HumanoidRootPart
-local originalPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-65.8681411743164, 17634.498046875, 9359.7236328125)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.600982666015625, 17634.498046875, 9227.1826171875)
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.66141891479492, 17634.49609375, 9048.8037109375)
-wait()
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = originalPosition
+-- Hàm tìm player theo tên hoặc display name
+function FindPlayerByName(Name)
+    for _, Player in pairs(Players:GetPlayers()) do
+        if string.find(string.lower(Player.Name), string.lower(Name)) or string.find(string.lower(Player.DisplayName), string.lower(Name)) then
+            return Player
+        end
+    end
 end
-})
 
-Tab:AddButton({
-	Name = "reach (hold your sword before use this)",
-	Callback = function()
+local loopGlitchActive = {}
 
-game.StarterGui:SetCore("SendNotification", {
-    Title    = "Sword Reach Script Loaded by"; 
-    Text     = "You need to hold a tool when executing."; 
-    Icon     = ""; 
-    Duration = 300;
-    Callback = bindableFunction;
-    Button1  = "made by linhmcfake";  
-    Button2  = "alt account: linhmc_new";
-})
-for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
-                if v:isA("Tool") then
-                    local a = Instance.new("SelectionBox",v.Handle)
-                    a.Adornee = v.Handle
-                    v.Handle.Size = Vector3.new(0.5,0.5,60)
-                    v.GripPos = Vector3.new(0,0,0)
-                    lplayer.Character.Humanoid:UnequipTools()
+-- Hàm dừng tất cả các loop glitch
+local function StopAllLoops()
+    for playerName, _ in pairs(loopGlitchActive) do
+        loopGlitchActive[playerName] = false
+    end
+end
+
+-- Hàm khôi phục loop cho người chơi
+local function RestoreLoopForPlayer(player)
+    if loopGlitchActive[player.Name] then
+        spawn(function()
+            while loopGlitchActive[player.Name] and _G.GlitchScriptRunning do
+                -- Lấy HumanoidRootPart của người chơi bất kể họ đang ngồi hay không
+                local targetPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                if targetPart then
+                    Module.Hang(targetPart) -- Áp dụng hàm Hang lên HumanoidRootPart
                 end
+                wait(0.5) -- Giảm thời gian lặp lại xuống 0.5 giây
+            end
+        end)
+    end
 end
+
+-- Lệnh chat để kích hoạt 'Hang' và 'Loop Hang'
+ChatService.OnMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
+    if not _G.GlitchScriptRunning then return end -- Dừng lại nếu script đã bị hủy
+    local message = string.lower(messageData.Message)
+    local speaker = Players:FindFirstChild(messageData.FromSpeaker)
+    
+    if speaker == LPlayer then
+        local args = string.split(message, " ")
+        
+        -- Lệnh :glitch
+        if string.sub(message, 1, 7) == ":glitch" then
+            if #args > 1 then
+                local targetName = args[2]
+                local targetPlayer = FindPlayerByName(targetName)
+                
+                if targetPlayer then
+                    -- Luôn luôn lấy HumanoidRootPart của mục tiêu
+                    local targetPart = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if targetPart then
+                        Module.Hang(targetPart)
+                    else
+                        print("Không tìm thấy HumanoidRootPart của người chơi.")
+                    end
+                else
+                    print("Không tìm thấy người chơi.")
+                end
+            end
+        
+        -- Lệnh :loopglitch
+        elseif string.sub(message, 1, 11) == ":loopglitch" then
+            if #args > 1 then
+                local targetName = args[2]
+                local targetPlayer = FindPlayerByName(targetName)
+                
+                if targetPlayer then
+                    if not loopGlitchActive[targetPlayer.Name] then
+                        loopGlitchActive[targetPlayer.Name] = true
+                        RestoreLoopForPlayer(targetPlayer)
+                    end
+                else
+                    print("Không tìm thấy người chơi.")
+                end
+            end
+            
+        -- Lệnh :unloopglitch
+        elseif string.sub(message, 1, 13) == ":unloopglitch" then
+            if #args > 1 then
+                local targetName = args[2]
+                local targetPlayer = FindPlayerByName(targetName)
+                
+                if targetPlayer and loopGlitchActive[targetPlayer.Name] then
+                    loopGlitchActive[targetPlayer.Name] = false
+                else
+                    print("Không tìm thấy người chơi hoặc loop chưa được kích hoạt.")
+                end
+            end
+        end
+    end
+end)
+
+-- Theo dõi sự kiện PlayerAdded
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        RestoreLoopForPlayer(player)
+    end)
+end)
+
+-- Hàm dọn dẹp để hủy tất cả hiệu ứng khi script cũ bị xoá
+_G.GlitchCleanup = function()
+    _G.GlitchScriptRunning = false
+    StopAllLoops() -- Dừng tất cả các loop hiện tại
+    loopGlitchActive = {} -- Reset trạng thái loop
+    print("Script cũ đã bị hủy.")
 end
-})
-
-local Tab = Window:MakeTab({
-	Name = "teleport",
-	Icon = "",
-	PremiumOnly = false
-})
-Tab:AddButton({
-	Name = "vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)
-wait()
- end
-})
-Tab:AddButton({
-	Name = "mega vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)
-wait()
- end
-})
-
-Tab:AddButton({
-	Name = "uber vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
-wait()
- end
-})
-
-Tab:AddButton({
-	Name = "thumbnail island",
-	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)
-wait()
- end
-})
-Tab:AddButton({
-	Name = "leaderboard",
-	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)
-wait()
- end
-})
-
-local Tab = Window:MakeTab({
-	Name = "others",
-	Icon = "",
-	PremiumOnly = false
-})
-
-
-Tab:AddButton({
-	Name = "pshade (shader)",
-	Callback = function()
-
-getgenv().RTX_Name = "rtxnamehere" --not really needed if you don't need it
-
---[[
-examples auto loads features :
-
-
-getgenv().RTX_Name = "Midday lite" 
-
--Morning
--Afternoon
--Midday
--Evening
--Night
--Midnight
-
--Morning lite
--Midday lite
--Afternoon lite
--Evening lite
--Night lite
--Midnight lite
-
-]]
-
-loadstring(game:HttpGet(('https://pastefy.app/xXkUxA0P/raw'),true))()
-end
-})
-Tab:AddButton({
-	Name = "Infinite yield",
-	Callback = function()
-
-loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-yield-15355"))()
-
-  	end    
-})
-Tab:AddButton({
-	Name = "telekinesis",
-	Callback = function()
-loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Telekinesis-12332"))()
-end
-})
-
-Tab:AddButton({
-	Name = "aimbot(for pvp)",
-	Callback = function()
-loadstring(game:HttpGet("https://rentry.co/n55gmtpi/raw", true))()
-end
-})
-
-Tab:AddButton({
-	Name = "antikick",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Autorejoin/main/Real"))()
-end
-})
-
-local Tab = Window:MakeTab({
-	Name = "misc",
-	Icon = "",
-	PremiumOnly = false
-})
-Tab:AddButton({
-	Name = "UPDATE 3.1",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "fix lag",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "New Aura",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "Add Linhmc Admin",
-	Callback = function()
-end
-})
