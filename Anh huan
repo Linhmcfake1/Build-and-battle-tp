@@ -1,0 +1,105 @@
+
+
+local fov = 70
+local sensitivity = 0.5 -- Độ nhạy để tách camera khỏi mục tiêu
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local Cam = game.Workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+local FOVring = Drawing.new("Circle")
+FOVring.Visible = true
+FOVring.Thickness = 2
+FOVring.Color = Color3.fromRGB(128, 0, 128) -- Purple color
+FOVring.Filled = false
+FOVring.Radius = fov
+FOVring.Position = Cam.ViewportSize / 2
+
+local function updateDrawings()
+    local camViewportSize = Cam.ViewportSize
+    FOVring.Position = camViewportSize / 2
+end
+
+local function onKeyDown(input)
+    if input.KeyCode == Enum.KeyCode.Delete then
+        RunService:UnbindFromRenderStep("FOVUpdate")
+        FOVring:Remove()
+    end
+end
+
+UserInputService.InputBegan:Connect(onKeyDown)
+
+-- Hàm "soft lock" để điều chỉnh camera dần dần về mục tiêu
+local function smoothLookAt(target)
+    local currentCFrame = Cam.CFrame
+    local targetLookVector = (target - currentCFrame.Position).unit
+    local newLookVector = currentCFrame.LookVector:Lerp(targetLookVector, sensitivity) -- Lerp giúp tạo cảm giác mềm mại khi chuyển hướng
+    local newCFrame = CFrame.new(currentCFrame.Position, currentCFrame.Position + newLookVector)
+    Cam.CFrame = newCFrame
+end
+
+-- Kiểm tra nếu có tường giữa bạn và mục tiêu
+local function isVisible(player, part)
+    local origin = Cam.CFrame.Position
+    local direction = (part.Position - origin).unit * (part.Position - origin).Magnitude
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterDescendantsInstances = {LocalPlayer.Character, player.Character} -- Loại trừ bản thân và mục tiêu
+    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+    local raycastResult = workspace:Raycast(origin, direction, raycastParams)
+
+    -- Trả về true nếu không có tường chặn
+    return raycastResult == nil
+end
+
+-- Kiểm tra nếu người chơi khác đội
+local function isOnSameTeam(player)
+    if player.Team ~= nil and LocalPlayer.Team ~= nil then
+        return player.Team == LocalPlayer.Team
+    end
+    return false
+end
+
+local function getClosestPlayerInFOV(trg_part)
+    local nearest = nil
+    local last = math.huge
+    local playerMousePos = Cam.ViewportSize / 2
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and not isOnSameTeam(player) then
+            local part = player.Character and player.Character:FindFirstChild(trg_part)
+            if part then
+                local ePos, isOnScreen = Cam:WorldToViewportPoint(part.Position)
+                local distance = (Vector2.new(ePos.X, ePos.Y) - playerMousePos).Magnitude
+
+                -- Kiểm tra nếu người chơi nằm trong FOV, không bị chặn tầm nhìn, và không cùng đội
+                if distance < last and isOnScreen and distance < fov and isVisible(player, part) then
+                    last = distance
+                    nearest = player
+                end
+            end
+        end
+    end
+
+    return nearest
+end
+
+-- Hàm theo dõi nhân vật mới khi hồi sinh
+local function onCharacterAdded(character)
+    -- Liên kết lại các sự kiện hoặc cập nhật trạng thái
+    RunService.RenderStepped:Connect(function()
+        updateDrawings()
+        local closest = getClosestPlayerInFOV("Head") -- Tìm người chơi gần nhất trong FOV với phần đầu
+        if closest and closest.Character:FindFirstChild("Head") then
+            smoothLookAt(closest.Character.Head.Position) -- Camera "ghim" mềm mại vào mục tiêu
+        end
+    end)
+end
+
+-- Đảm bảo script hoạt động ngay cả sau khi hồi sinh
+LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+-- Nếu nhân vật đã tồn tại, chạy script ngay lập tức
+if LocalPlayer.Character then
+    onCharacterAdded(LocalPlayer.Character)
+end
