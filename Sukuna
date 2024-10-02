@@ -71,7 +71,7 @@ end
 local function activateFling()
     local sound = Instance.new("Sound", workspace)
     sound.SoundId = "rbxassetid://6590147536"
-    sound.Volume = 3 -- Âm lượng gấp ba lần
+    sound.Volume = 7 -- Âm lượng gấp ba lần
     sound:Play()
 
     sound.Ended:Connect(function()
