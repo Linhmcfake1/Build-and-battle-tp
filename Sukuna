@@ -1,0 +1,105 @@
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://184574340"  -- ID của hoạt ảnh bạn muốn phát
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+
+-- Phát hoạt ảnh ngay khi execute
+track:Play()
+ --// Services \\--
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LPlayer = Players.LocalPlayer
+local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
+
+--// Variables \\--
+local Remotes: Folder = ReplicatedStorage.Remotes
+local StampAsset: RemoteFunction = Remotes.StampAsset
+local Plates: Model = game.Workspace.Plates
+local LPlate: Part
+
+for _, Plate in pairs(Plates:GetChildren()) do
+    if (Plate.Owner.Value == LPlayer) then
+        LPlate = Plate.Plate
+        break
+    end
+end
+
+local Module = {}
+
+function Module.Fling(Player)
+    if (Player:IsA("Player")) then Player = Player.Character.PrimaryPart end
+    StampAsset:InvokeServer(
+        41324885,
+        LPlate.CFrame + Vector3.new(0, 9e9, 0),
+        "{99ab22df-ca29-4143-a2fd-0a1b79db78c2}",
+        {Player},
+        0
+    )
+end
+
+--// GUI Creation \\--
+
+-- Input Box
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(0, 0, 0, 0) -- Đặt kích thước ban đầu là 0 để ẩn
+inputBox.Position = UDim2.new(0, 10, 0, 10) -- Đặt ở góc trên cùng bên trái
+inputBox.Text = "all" -- Mặc định là 'all'
+inputBox.Parent = ScreenGui
+inputBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+inputBox.TextColor3 = Color3.new(1, 1, 1)
+inputBox.TextScaled = true
+
+-- Exclude yourself and friends
+local excludedPlayers = {
+    LPlayer.Name,
+    "TenBanCuaBan" -- Thay tên bạn của bạn ở đây
+}
+
+local function findPlayersByPartialName(partialName)
+    local matchedPlayers = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if not table.find(excludedPlayers, player.Name) then
+            if partialName:lower() == "all" then
+                table.insert(matchedPlayers, player)
+            elseif player.Name:lower():find(partialName:lower()) or player.DisplayName:lower():find(partialName:lower()) then
+                table.insert(matchedPlayers, player)
+            end
+        end
+    end
+    return matchedPlayers
+end
+
+local function activateFling()
+    local sound = Instance.new("Sound", workspace)
+    sound.SoundId = "rbxassetid://6590147536"
+    sound.Volume = 3 -- Âm lượng gấp ba lần
+    sound:Play()
+
+    sound.Ended:Connect(function()
+        sound.SoundId = "rbxassetid://516789356"
+        sound:Play()
+
+        sound.Ended:Connect(function()
+            sound:Stop()  -- Dừng âm thanh
+            sound:Destroy()  -- Phá hủy đối tượng âm thanh
+        end)
+    end)
+
+    local targetName = inputBox.Text
+    local targetPlayers = findPlayersByPartialName(targetName)
+
+    -- Lặp lại Fling 3 lần với delay 0.2 giây
+    for i = 1, 3 do
+        for _, targetPlayer in ipairs(targetPlayers) do
+            if targetPlayer.Character and targetPlayer.Character.PrimaryPart then
+                Module.Fling(targetPlayer.Character.PrimaryPart)
+            end
+        end
+        wait(0.2) -- Delay giữa các lần lặp
+    end
+    
+    -- Ẩn TextBox ngay lập tức
+    inputBox.Size = UDim2.new(0, 0, 0, 0) -- Đặt kích thước về 0 để ẩn nhanh nhất
+end
+
+-- Execute Fling when script is run
+activateFling()
