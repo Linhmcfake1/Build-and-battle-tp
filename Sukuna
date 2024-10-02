@@ -75,7 +75,7 @@ local function activateFling()
     sound:Play()
 
     sound.Ended:Connect(function()
-        sound.SoundId = "rbxassetid://516789356"
+        sound.SoundId = "rbxassetid://12222084"
         sound:Play()
 
         sound.Ended:Connect(function()
