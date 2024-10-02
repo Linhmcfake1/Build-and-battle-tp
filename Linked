@@ -181,7 +181,23 @@ Tab:AddButton({
 wait()
  end
 })
+local Tab = Window:MakeTab({
+	Name = "test for fun",
+	Icon = "",
+	PremiumOnly = false
+})
 
+Tab:AddButton({
+	Name = "This page hosts my silly scripts :D",
+	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "sukuna (i dont have any idea)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Sukuna"))()
+end
+})
 local Tab = Window:MakeTab({
 	Name = "others",
 	Icon = "",
