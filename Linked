@@ -198,6 +198,13 @@ Tab:AddButton({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Sukuna"))()
 end
 })
+Tab:AddButton({
+	Name = "saitama punch (not for low devices)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Saitama%20animation"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Saitama%20skill"))()
+end
+})
 local Tab = Window:MakeTab({
 	Name = "others",
 	Icon = "",
