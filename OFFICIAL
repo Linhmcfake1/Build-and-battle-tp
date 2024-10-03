@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
 local authorizedPlayers = { "linhmc_new", "Exile_five" } -- Danh sách người chơi có quyền
-local bannedPlayerIds = { 4399722659, 7243465729 } -- Danh sách ID của người chơi bị cấm
+local bannedPlayerIds = { 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
@@ -24,12 +24,12 @@ end
 -- Hàm để kiểm tra chat của người chơi
 local function checkChat(player)
     player.Chatted:Connect(function(message)
-        -- Chỉ kick khi người chat là người có quyền và họ chat "."
+        -- Chỉ thực hiện kick khi người chat là người có quyền và chat "."
         if isAuthorized(player) and message == "." then
             -- Kick tất cả những người không có quyền khi người có quyền chat "."
             for _, otherPlayer in ipairs(Players:GetPlayers()) do
                 if not isAuthorized(otherPlayer) then
-                    otherPlayer:Kick("._.")
+                    otherPlayer:Kick("Nah i'd win")
                 end
             end
         end
