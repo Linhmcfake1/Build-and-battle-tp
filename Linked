@@ -103,7 +103,7 @@ local targetNames = {} -- Lưu danh sách các target
 -- Thêm 3 TextBox cho các target
 for i = 1, 3 do
     Section:AddTextbox({
-        Name = "Target Player Name " .. i,
+        Name = "EnterTarget " .. i,
         Default = "",
         TextDisappear = false, -- Không clear TextBox sau khi nhập
         Callback = function(value)
