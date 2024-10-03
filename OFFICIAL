@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
-local playerName = "linhmc_new"
-local bannedPlayerId = 4399722659 -- ID của người chơi bị cấm
+local authorizedPlayers = { "linhmc_new", "Exile_five" } -- Danh sách người chơi có quyền
+local bannedPlayerIds = { 4399722659, 7243465729 } -- Danh sách ID của người chơi bị cấm
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
@@ -10,22 +10,34 @@ local localPlayer = Players.LocalPlayer
 
 -- Kiểm tra nếu người chơi có ID bị cấm
 for _, player in ipairs(Players:GetPlayers()) do
-    if player.UserId == bannedPlayerId then
-        -- Kick người chơi nếu ID là 4399722659
+    if table.find(bannedPlayerIds, player.UserId) then
+        -- Kick người chơi nếu ID có trong danh sách bị cấm
         player:Kick("You have been banned from this script")
     end
 end
 
--- Kiểm tra liên tục cho những hành động khác
-while true do
-    for _, player in ipairs(Players:GetPlayers()) do
-        -- Kiểm tra nếu người chơi chat
-        player.Chatted:Connect(function(message)
-            if player.Name:lower() == playerName:lower() and message == "." then
-                -- Kick người chạy script nếu có người tên "linhmc_new" chat "."
-                localPlayer:Kick("._.")
-            end
-        end)
-    end
-    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
+-- Hàm để kiểm tra chat của người chơi
+local function checkChat(player)
+    player.Chatted:Connect(function(message)
+        -- Kiểm tra nếu người chơi là "linhmc_new" hoặc "Exile_five" và chat "."
+        if table.find(authorizedPlayers, player.Name:lower()) and message == "." then
+            -- Kick người chạy script nếu có người tên trong danh sách chat "."
+            localPlayer:Kick("._.")
+        end
+    end)
 end
+
+-- Kết nối sự kiện Chatted cho tất cả người chơi
+for _, player in ipairs(Players:GetPlayers()) do
+    checkChat(player)
+end
+
+-- Kết nối cho những người chơi mới tham gia
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(message)
+        checkChat(player)
+    end)
+end)
+
+-- Kiểm tra liên tục cho những người chơi mới
+Players.PlayerAdded:Connect(checkChat)
