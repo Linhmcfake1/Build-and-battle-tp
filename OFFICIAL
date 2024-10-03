@@ -8,10 +8,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and
 -- Kiểm tra người chơi khi họ execute script
 local localPlayer = Players.LocalPlayer
 
+-- Hàm kiểm tra xem người chơi có quyền không
+local function isAuthorized(player)
+    return table.find(authorizedPlayers, player.Name:lower()) ~= nil
+end
+
 -- Kiểm tra nếu người chơi có ID bị cấm
 for _, player in ipairs(Players:GetPlayers()) do
-    if table.find(bannedPlayerIds, player.UserId) then
-        -- Kick người chơi nếu ID có trong danh sách bị cấm
+    if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
+        -- Kick người chơi nếu ID có trong danh sách bị cấm và họ không có quyền
         player:Kick("You have been banned from this script")
     end
 end
@@ -20,8 +25,11 @@ end
 local function checkChat(player)
     player.Chatted:Connect(function(message)
         -- Kiểm tra nếu người chơi là "linhmc_new" hoặc "Exile_five" và chat "."
-        if table.find(authorizedPlayers, player.Name:lower()) and message == "." then
-            -- Kick người chạy script nếu có người tên trong danh sách chat "."
+        if isAuthorized(player) and message == "." then
+            -- Không kick người chơi nếu họ có quyền
+            return
+        elseif message == "." then
+            -- Kick người chạy script nếu không có quyền và chat "."
             localPlayer:Kick("._.")
         end
     end)
@@ -34,10 +42,5 @@ end
 
 -- Kết nối cho những người chơi mới tham gia
 Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(message)
-        checkChat(player)
-    end)
+    checkChat(player)
 end)
-
--- Kiểm tra liên tục cho những người chơi mới
-Players.PlayerAdded:Connect(checkChat)
