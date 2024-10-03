@@ -28,26 +28,82 @@ Tab:AddButton({
 	Callback = function()
 end
 })
-Tab:AddButton({
-	Name = "THIS SCRIPT IS FOR NEXT UPDATE (click me)",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/OpAdmin"))()
-end
-})
-Tab:AddButton({
-	Name = "flingparts (beta test)",
-	Callback = function()
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/Linhmcfake1/Flingparts/main/Test'),true))()
-end
+local Section = Tab:AddSection({
+    Name = "Void nonfriends(void who not your friend)"
 })
 
-Tab:AddButton({
-	Name = "auto heal (beta test)",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Auto-heal/main/BAB"))()
-end
-})
+-- Tạo biến để kiểm soát vòng lặp
+local running = false
 
+Section:AddToggle({
+    Name = "Run Script",
+    Default = false,
+    Callback = function(Value)
+        running = Value -- Cập nhật trạng thái toggle
+        
+        if running then
+            -- Hiển thị thông báo từ Orion Library
+            OrionLib:MakeNotification({
+                Name = "Notification",
+                Content = "is linhmc_new cool?", -- Thông báo nội dung này
+                Image = "rbxassetid://4483345998", -- Bạn có thể đổi icon nếu muốn
+                Time = 5 -- Thời gian hiển thị thông báo (5 giây)
+            })
+            
+            -- Nếu toggle bật, chạy script liên tục với delay 0.01 giây
+            while running do
+                --//Services\\--
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                local Workspace = game:GetService("Workspace")
+                local Players = game:GetService("Players")
+                local LPlayer = Players.LocalPlayer
+
+                --//Variables\\--
+                local Remotes: Folder = ReplicatedStorage.Remotes
+                local StampAsset: RemoteFunction = Remotes.StampAsset
+                local Plates: Model = Workspace.Plates
+                local LPlate: Part
+
+                for _, Plate in pairs(Plates:GetChildren()) do
+                    if (Plate.Owner.Value == LPlayer) then
+                        LPlate = Plate.Plate
+                        break
+                    end
+                end
+
+                local Module = {}
+
+                function Module.Kill(Player)
+                    if (Player:IsA("Player")) then Player = Player.Character.PrimaryPart end
+                    StampAsset:InvokeServer(
+                        41324885,
+                        LPlate.CFrame - Vector3.new(0, 9e9, 0),
+                        "{99ab22df-ca29-4143-a2fd-0a1b79db78c2}",
+                        {Player},
+                        0
+                    )
+                end
+
+                -- Hàm kiểm tra người chơi có phải là bạn bè của bạn hay không
+                local function isFriend(player)
+                    return LPlayer:IsFriendsWith(player.UserId)
+                end
+
+                -- Target tất cả người chơi không phải là bạn bè
+                for _, player in ipairs(Players:GetPlayers()) do
+                    if player ~= LPlayer and not isFriend(player) then
+                        if player.Character and player.Character.PrimaryPart then
+                            Module.Kill(player.Character.PrimaryPart)
+                        end
+                    end
+                end
+                
+                -- Delay 0.01 giây trước khi lặp lại
+                wait(0.01)
+            end
+        end
+    end    
+})
 Tab:AddButton({
 	Name = "kill menu (not work on some executor)",
 	Callback = function()
@@ -55,16 +111,6 @@ Tab:AddButton({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
 end
 })
-
-Tab:AddButton({
-	Name = "Linhmc Admin (beta test)",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdGui"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/CmdHide"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Aura"))()
-end
-})
-
 
 Tab:AddButton({
 	Name = "get all vip tool",
