@@ -19,12 +19,6 @@ Tab:AddButton({
     end    
 })
 
-Tab:AddButton({
-    Name = "-----exeploit-----",
-    Callback = function()
-    end
-})
-
 local Section = Tab:AddSection({
     Name = "Operator"
 })
@@ -100,6 +94,10 @@ Section:AddToggle({
             end
         end
     end    
+})
+
+local Section = Tab:AddSection({
+    Name = "exeploit"
 })
 
 Orion:Init() -- Khởi tạo Orion Library
