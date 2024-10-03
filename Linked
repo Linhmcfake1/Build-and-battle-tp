@@ -1,33 +1,30 @@
-
 local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
 
 local Window = Orion:MakeWindow({Name = "linhmc hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
-	Name = "Game",
-	Icon = "",
-	PremiumOnly = false
+    Name = "Game",
+    Icon = "",
+    PremiumOnly = false
 })
 
 Tab:AddButton({
-	Name = "script by linhmc_new",
-	Callback = function()
-
-local args = {
-    [1] = "SCRIPT BY LINHMC_NEW",
-    [2] = "All"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-
-  	end    
+    Name = "script by linhmc_new",
+    Callback = function()
+        local args = {
+            [1] = "SCRIPT BY LINHMC_NEW",
+            [2] = "All"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+    end    
 })
 
 Tab:AddButton({
-	Name = "-----exeploit-----",
-	Callback = function()
-end
+    Name = "-----exeploit-----",
+    Callback = function()
+    end
 })
+
 local Section = Tab:AddSection({
     Name = "Void nonfriends(void who not your friend)"
 })
@@ -43,7 +40,7 @@ Section:AddToggle({
         
         if running then
             -- Hiển thị thông báo từ Orion Library
-            OrionLib:MakeNotification({
+            Orion:MakeNotification({
                 Name = "Notification",
                 Content = "is linhmc_new cool?", -- Thông báo nội dung này
                 Image = "rbxassetid://4483345998", -- Bạn có thể đổi icon nếu muốn
@@ -59,10 +56,10 @@ Section:AddToggle({
                 local LPlayer = Players.LocalPlayer
 
                 --//Variables\\--
-                local Remotes: Folder = ReplicatedStorage.Remotes
-                local StampAsset: RemoteFunction = Remotes.StampAsset
-                local Plates: Model = Workspace.Plates
-                local LPlate: Part
+                local Remotes = ReplicatedStorage.Remotes
+                local StampAsset = Remotes.StampAsset
+                local Plates = Workspace.Plates
+                local LPlate
 
                 for _, Plate in pairs(Plates:GetChildren()) do
                     if (Plate.Owner.Value == LPlayer) then
@@ -104,6 +101,8 @@ Section:AddToggle({
         end
     end    
 })
+
+Orion:Init() -- Khởi tạo Orion Library
 Tab:AddButton({
 	Name = "kill menu (not work on some executor)",
 	Callback = function()
