@@ -33,7 +33,7 @@ local Section = Tab:AddSection({
 local running = false
 
 Section:AddToggle({
-    Name = "Run Script",
+    Name = "LoopVoid Nonfriends",
     Default = false,
     Callback = function(Value)
         running = Value -- Cập nhật trạng thái toggle
