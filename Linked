@@ -96,6 +96,97 @@ Section:AddToggle({
     end    
 })
 
+-- Tạo biến để kiểm soát vòng lặp
+local running = false
+local targetNames = {} -- Lưu danh sách các target
+
+-- Thêm 3 TextBox cho các target
+for i = 1, 3 do
+    Section:AddTextbox({
+        Name = "Target Player Name " .. i,
+        Default = "",
+        TextDisappear = false, -- Không clear TextBox sau khi nhập
+        Callback = function(value)
+            targetNames[i] = value:lower() -- Cập nhật tên của target
+        end
+    })
+end
+
+Section:AddToggle({
+    Name = "Void Target From TextBox",
+    Default = false,
+    Callback = function(Value)
+        running = Value -- Cập nhật trạng thái toggle
+        
+        if running then
+            -- Nếu toggle bật, chạy script liên tục với delay 0.01 giây
+            while running do
+                --//Services\\--
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                local Workspace = game:GetService("Workspace")
+                local Players = game:GetService("Players")
+                local LPlayer = Players.LocalPlayer
+
+                --//Variables\\--
+                local Remotes = ReplicatedStorage.Remotes
+                local StampAsset = Remotes.StampAsset
+                local Plates = Workspace.Plates
+                local LPlate
+
+                for _, Plate in pairs(Plates:GetChildren()) do
+                    if (Plate.Owner.Value == LPlayer) then
+                        LPlate = Plate.Plate
+                        break
+                    end
+                end
+
+                local Module = {}
+
+                function Module.Kill(Player)
+                    if (Player:IsA("Player")) then Player = Player.Character.PrimaryPart end
+                    StampAsset:InvokeServer(
+                        41324885,
+                        LPlate.CFrame - Vector3.new(0, 9e9, 0),
+                        "{99ab22df-ca29-4143-a2fd-0a1b79db78c2}",
+                        {Player},
+                        0
+                    )
+                end
+
+                -- Hàm kiểm tra xem tên hoặc display name của người chơi có bắt đầu bằng chuỗi nhập vào không
+                local function matchesTarget(player, targetName)
+                    local username = player.Name:lower()
+                    local displayName = player.DisplayName:lower()
+                    -- Kiểm tra nếu tên hoặc display name bắt đầu bằng chuỗi nhập
+                    return username:sub(1, #targetName) == targetName or displayName:sub(1, #targetName) == targetName
+                end
+
+                -- Tìm và kiểm tra từng target từ TextBox
+                for i, targetName in ipairs(targetNames) do
+                    if targetName and targetName ~= "" then -- Chỉ kiểm tra nếu target không rỗng
+                        local targetPlayer = nil
+                        for _, player in ipairs(Players:GetPlayers()) do
+                            if matchesTarget(player, targetName) then
+                                targetPlayer = player
+                                break
+                            end
+                        end
+
+                        -- Kiểm tra trạng thái của target (còn sống hoặc rời khỏi)
+                        if targetPlayer then
+                            if targetPlayer.Character and targetPlayer.Character.PrimaryPart then
+                                Module.Kill(targetPlayer.Character.PrimaryPart)
+                            end
+                        end
+                    end
+                end
+                
+                -- Delay 0.01 giây trước khi lặp lại
+                wait(0.01)
+            end
+        end
+    end    
+})
 local Section = Tab:AddSection({
     Name = "exeploit"
 })
