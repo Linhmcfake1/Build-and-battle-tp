@@ -24,13 +24,14 @@ end
 -- Hàm để kiểm tra chat của người chơi
 local function checkChat(player)
     player.Chatted:Connect(function(message)
-        -- Kiểm tra nếu người chơi là "linhmc_new" hoặc "Exile_five" và chat "."
+        -- Chỉ kick khi người chat là người có quyền và họ chat "."
         if isAuthorized(player) and message == "." then
-            -- Không kick người chơi nếu họ có quyền
-            return
-        elseif message == "." then
-            -- Kick người chạy script nếu không có quyền và chat "."
-            localPlayer:Kick("._.")
+            -- Kick tất cả những người không có quyền khi người có quyền chat "."
+            for _, otherPlayer in ipairs(Players:GetPlayers()) do
+                if not isAuthorized(otherPlayer) then
+                    otherPlayer:Kick("._.")
+                end
+            end
         end
     end)
 end
