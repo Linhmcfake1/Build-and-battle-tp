@@ -209,7 +209,7 @@ end
 
 -- Thêm ô selection (dropdown)
 Tab:AddDropdown({
-    Name = "Teleport Location",
+    Name = "Select Teleport Location",
     Options = teleportNames,
     CurrentOption = teleportNames[1],
     Callback = function(selectedTeleport)
@@ -221,6 +221,9 @@ Tab:AddDropdown({
         end
     end
 })
+
+-- Hiển thị cửa sổ Orion
+OrionLib:Init()
 
 Tab:AddButton({
 	Name = "kill menu (not work on some executor)",
