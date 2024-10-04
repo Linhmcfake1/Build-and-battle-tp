@@ -191,7 +191,8 @@ local Section = Tab:AddSection({
     Name = "exeploit & teleport"
 })
 
--- Danh sách các teleport
+
+
 local teleports = {
     {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
     {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
@@ -200,7 +201,27 @@ local teleports = {
     {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
 }
 
--- Danh sách các teleport
+local teleportNames = {}
+
+-- Lưu tên của các teleport để hiển thị trong dropdown
+for _, teleport in ipairs(teleports) do
+    table.insert(teleportNames, teleport[1])
+end
+
+-- Thêm ô selection (dropdown)
+Tab:AddDropdown({
+    Name = "Select Teleport Location",
+    Options = teleportNames,
+    CurrentOption = teleportNames[1],
+    Callback = function(selectedTeleport)
+        for _, teleport in ipairs(teleports) do
+            if teleport[1] == selectedTeleport then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleport[2]
+                break
+            end
+        end
+    end
+}
 local teleports = {
     {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
     {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
