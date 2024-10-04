@@ -222,10 +222,6 @@ Tab:AddDropdown({
     end
 })
 
--- Hiển thị cửa sổ Orion
-OrionLib:Init()
-Orion:Init() -- Khởi tạo Orion Library
-
 Tab:AddButton({
 	Name = "kill menu (not work on some executor)",
 	Callback = function()
