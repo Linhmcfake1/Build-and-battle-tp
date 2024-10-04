@@ -103,7 +103,7 @@ local targetNames = {} -- Lưu danh sách các target
 -- Thêm 3 TextBox cho các target
 for i = 1, 3 do
     Section:AddTextbox({
-        Name = "EnterTarget " .. i,
+        Name = "Target Player Name " .. i,
         Default = "",
         TextDisappear = false, -- Không clear TextBox sau khi nhập
         Callback = function(value)
@@ -412,8 +412,8 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.5 ",
-	Cal lback = function()
+	Name = "UPDATE 3.1",
+	Callback = function()
 end
 })
 Tab:AddButton({
@@ -422,12 +422,12 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
-	Name = "added void",
+	Name = "New Aura",
 	Callback = function()
 end
 })
 Tab:AddButton({
-	Name = "New button",
+	Name = "Add Linhmc Admin",
 	Callback = function()
 end
 })
