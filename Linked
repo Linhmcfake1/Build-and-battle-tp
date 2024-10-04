@@ -412,8 +412,8 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.1",
-	Callback = function()
+	Name = "UPDATE 3.5 ",
+	Cal lback = function()
 end
 })
 Tab:AddButton({
@@ -422,12 +422,12 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
-	Name = "New Aura",
+	Name = "added void",
 	Callback = function()
 end
 })
 Tab:AddButton({
-	Name = "Add Linhmc Admin",
+	Name = "New button",
 	Callback = function()
 end
 })
