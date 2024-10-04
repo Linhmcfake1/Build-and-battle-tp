@@ -200,6 +200,15 @@ local teleports = {
     {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
 }
 
+-- Danh sách các teleport
+local teleports = {
+    {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
+    {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
+    {"Uber VIP", CFrame.new(-108.00, 17634.06, 9020.00)},
+    {"Thumbnail Island", CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)},
+    {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
+}
+
 local teleportNames = {}
 
 -- Lưu tên của các teleport để hiển thị trong dropdown
@@ -222,8 +231,15 @@ Tab:AddDropdown({
     end
 })
 
--- Hiển thị cửa sổ Orion
-OrionLib:Init()
+-- Thêm một số nút khác vào Tab
+AnotherTab:AddButton({
+    Name = "Press me :D",
+    Callback = function()
+        print("Button pressed!")
+        -- Thêm hành động khác nếu cần
+    end
+})
+
 
 Tab:AddButton({
 	Name = "kill menu (not work on some executor)",
