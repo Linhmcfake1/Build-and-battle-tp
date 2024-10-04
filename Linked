@@ -1,6 +1,6 @@
 local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
 
-local Window = Orion:MakeWindow({Name = "linhmc hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = Orion:MakeWindow({Name = "LinhmcHub Renewed", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
     Name = "Game",
@@ -35,10 +35,10 @@ Section:AddToggle({
         if running then
             -- Hiển thị thông báo từ Orion Library
             Orion:MakeNotification({
-                Name = "Notification",
-                Content = "is linhmc_new cool?", -- Thông báo nội dung này
-                Image = "rbxassetid://4483345998", -- Bạn có thể đổi icon nếu muốn
-                Time = 5 -- Thời gian hiển thị thông báo (5 giây)
+                Name = "!!!",
+                Content = "No No No No Wait Wait Wait Wait Wait", -- Thông báo nội dung này
+                Image = "", -- Bạn có thể đổi icon nếu muốn
+                Time = 3 -- Thời gian hiển thị thông báo (5 giây)
             })
             
             -- Nếu toggle bật, chạy script liên tục với delay 0.01 giây
@@ -113,7 +113,7 @@ for i = 1, 3 do
 end
 
 Section:AddToggle({
-    Name = "LoopTargetVoid",
+    Name = "LoopVoidTarget",
     Default = false,
     Callback = function(Value)
         running = Value -- Cập nhật trạng thái toggle
@@ -191,9 +191,39 @@ local Section = Tab:AddSection({
     Name = "exeploit"
 })
 
+local teleports = {
+    {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
+    {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
+    {"Uber VIP", CFrame.new(-108.00, 17634.06, 9020.00)},
+    {"Thumbnail Island", CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)},
+    {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
+}
+
+local teleportNames = {}
+
+-- Lưu tên của các teleport để hiển thị trong dropdown
+for _, teleport in ipairs(teleports) do
+    table.insert(teleportNames, teleport[1])
+end
+
+-- Thêm ô selection (dropdown)
+Tab:AddDropdown({
+    Name = "Select Teleport Location",
+    Options = teleportNames,
+    CurrentOption = teleportNames[1],
+    Callback = function(selectedTeleport)
+        for _, teleport in ipairs(teleports) do
+            if teleport[1] == selectedTeleport then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleport[2]
+                break
+            end
+        end
+    end
+})
+
 Orion:Init() -- Khởi tạo Orion Library
 Tab:AddButton({
-	Name = "kill menu (not work on some executor)",
+	Name = "handlekill (not work on some executor)",
 	Callback = function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Kill-gui/main/Kill"))()
@@ -201,7 +231,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "get all vip tool",
+	Name = "claim all vip tool",
 	Callback = function()
 
 local player = game.Players.LocalPlayer
@@ -219,11 +249,11 @@ wait()
 humanoidRootPart.CFrame = CFrame.new(-87.52900695800781, 17633.4921875, 9223.5341796875)
 wait()
 humanoidRootPart.CFrame = CFrame.new(-99.24241638183594, 17633.5, 9223.49609375)
-wait()
+wait(0.1)
 humanoidRootPart.CFrame = CFrame.new(-112.67101287841797, 17633.4921875, 9223.53515625)
-wait()
+wait(0.1)
 humanoidRootPart.CFrame = CFrame.new(-105.40996551513672, 17633.5, 9356.6171875)
-wait()
+wait(0.1)
 humanoidRootPart.CFrame = CFrame.new(-94.42718505859375, 17633.5, 9356.7421875)
 
 wait(0.1)
@@ -233,7 +263,7 @@ end
 
 
 Tab:AddButton({
-	Name = "get 475 point (once per server)",
+	Name = "Claim 475 point (once per server)",
 	Callback = function()
 
 -- Lưu lại vị trí ban đầu của HumanoidRootPart
@@ -275,46 +305,7 @@ end
 end
 })
 
-local Tab = Window:MakeTab({
-	Name = "teleport",
-	Icon = "",
-	PremiumOnly = false
-})
-Tab:AddButton({
-	Name = "vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)
-wait()
- end
-})
-Tab:AddButton({
-	Name = "mega vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)
-wait()
- end
-})
 
-Tab:AddButton({
-	Name = "uber vip",
-	Callback = function()   
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-108.00, 17634.06, 9020.00)
-wait()
- end
-})
-
-Tab:AddButton({
-	Name = "thumbnail island",
-	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)
-wait()
- end
-})
-Tab:AddButton({
-	Name = "leaderboard",
-	Callback = function()     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)
-wait()
- end
-})
 local Tab = Window:MakeTab({
 	Name = "test for fun",
 	Icon = "",
@@ -345,38 +336,6 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-
-Tab:AddButton({
-	Name = "pshade (shader)",
-	Callback = function()
-
-getgenv().RTX_Name = "rtxnamehere" --not really needed if you don't need it
-
---[[
-examples auto loads features :
-
-
-getgenv().RTX_Name = "Midday lite" 
-
--Morning
--Afternoon
--Midday
--Evening
--Night
--Midnight
-
--Morning lite
--Midday lite
--Afternoon lite
--Evening lite
--Night lite
--Midnight lite
-
-]]
-
-loadstring(game:HttpGet(('https://pastefy.app/xXkUxA0P/raw'),true))()
-end
-})
 Tab:AddButton({
 	Name = "Infinite yield",
 	Callback = function()
@@ -412,22 +371,7 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.1",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "fix lag",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "New Aura",
-	Callback = function()
-end
-})
-Tab:AddButton({
-	Name = "Add Linhmc Admin",
+	Name = "UPDATE 3.6",
 	Callback = function()
 end
 })
