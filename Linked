@@ -281,7 +281,7 @@ local playerList = {}
 
 local TeleportTab = Window:MakeTab({
 	Name = "movement",
-	Icon = "rbxassetid://4483345998",
+	Icon = "",
 	PremiumOnly = false
 })
 
