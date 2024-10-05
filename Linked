@@ -191,36 +191,6 @@ local Section = Tab:AddSection({
     Name = "exeploit"
 })
 
-local teleports = {
-    {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
-    {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
-    {"Uber VIP", CFrame.new(-108.00, 17634.06, 9020.00)},
-    {"Thumbnail Island", CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)},
-    {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
-}
-
-local teleportNames = {}
-
--- Lưu tên của các teleport để hiển thị trong dropdown
-for _, teleport in ipairs(teleports) do
-    table.insert(teleportNames, teleport[1])
-end
-
--- Thêm ô selection (dropdown)
-Tab:AddDropdown({
-    Name = "Select Teleport Location",
-    Options = teleportNames,
-    CurrentOption = teleportNames[1],
-    Callback = function(selectedTeleport)
-        for _, teleport in ipairs(teleports) do
-            if teleport[1] == selectedTeleport then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleport[2]
-                break
-            end
-        end
-    end
-})
-
 Orion:Init() -- Khởi tạo Orion Library
 Tab:AddButton({
 	Name = "handlekill (not work on some executor)",
@@ -263,7 +233,7 @@ end
 
 
 Tab:AddButton({
-	Name = "Claim 475 point (once per server)",
+	Name = "claim 475 point (once per server)",
 	Callback = function()
 
 -- Lưu lại vị trí ban đầu của HumanoidRootPart
@@ -305,6 +275,140 @@ end
 end
 })
 
+-- Dropdown để chọn người chơi
+local selectedPlayer = nil
+local playerList = {}
+
+local TeleportTab = Window:MakeTab({
+	Name = "movement",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = TeleportTab:AddSection({
+    Name = "Location"
+})
+
+-- Danh sách các vị trí teleport
+local teleports = {
+    {"VIP", CFrame.new(-85.99878692626953, 17633.498046875, 9349.5361328125)},
+    {"Mega VIP", CFrame.new(-86.5157241821289, 17633.498046875, 9215.1953125)},
+    {"Uber VIP", CFrame.new(-108.00, 17634.06, 9020.00)},
+    {"Secret Island", CFrame.new(-21.291458129882812, 0.3889467120170593, -5553.3359375)},
+    {"Leaderboard", CFrame.new(0.46162018179893494, 24.500017166137695, -220.42832946777344)}
+}
+
+local teleportNames = {}
+
+-- Lưu tên của các teleport để hiển thị trong dropdown
+for _, teleport in ipairs(teleports) do
+    table.insert(teleportNames, teleport[1])
+end
+
+-- Thêm ô selection (dropdown) cho teleport
+TeleportTab:AddDropdown({
+    Name = "Teleport Location",
+    Options = teleportNames,
+    CurrentOption = teleportNames[1],
+    Callback = function(selectedTeleport)
+        for _, teleport in ipairs(teleports) do
+            if teleport[1] == selectedTeleport then
+                -- Di chuyển người chơi tới vị trí đã chọn
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleport[2]
+                break
+            end
+        end
+    end
+})
+
+local Section = TeleportTab:AddSection({
+    Name = "Goto Player"
+})
+
+-- Phần để chọn người chơi, như đã đề cập trước đó
+local selectedPlayer = nil
+local playerList = {}
+
+local function updatePlayers()
+    local newPlayerList = {}
+    for _, player in pairs(game.Players:GetPlayers()) do
+        table.insert(newPlayerList, player.Name)
+    end
+    
+    playerList = newPlayerList
+    if PlayerDropdown then
+        PlayerDropdown:Refresh(playerList, true)
+    end
+end
+
+
+-- Liên tục cập nhật danh sách người chơi
+spawn(function()
+    while true do
+        updatePlayers()
+        wait(2) -- Cập nhật mỗi 2 giây
+    end
+end)
+
+local PlayerDropdown
+
+-- Hàm để cập nhật danh sách người chơi trong dropdown
+local function updatePlayers()
+	local newPlayerList = {}
+	for _, player in pairs(game.Players:GetPlayers()) do
+		table.insert(newPlayerList, player.Name)
+	end
+	
+	-- Làm mới danh sách người chơi
+	playerList = newPlayerList
+	if PlayerDropdown then
+		PlayerDropdown:Refresh(playerList, true)  -- Làm mới hoàn toàn với danh sách mới
+	end
+end
+
+-- Dropdown chọn người chơi
+PlayerDropdown = TeleportTab:AddDropdown({
+	Name = "Select Player",
+	Default = "",
+	Options = playerList,
+	Callback = function(value)
+		selectedPlayer = value
+	end
+})
+
+-- Nút teleport
+TeleportTab:AddButton({
+	Name = "goto",
+	Callback = function()
+		if selectedPlayer then
+			local speaker = game.Players.LocalPlayer
+			local targetPlayer = game.Players:FindFirstChild(selectedPlayer)
+			if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+					wait(0.1)
+				end
+				local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
+				if targetRoot and speakerRoot then
+					speakerRoot.CFrame = targetRoot.CFrame + Vector3.new(3, 1, 0)
+				end
+			else
+				print("Target player or HumanoidRootPart not found.")
+			end
+		else
+			print("No player selected.")
+		end
+	end
+})
+
+-- Liên tục kiểm tra và cập nhật danh sách người chơi
+spawn(function()
+	while true do
+		updatePlayers()
+		wait(2) -- Kiểm tra và cập nhật mỗi 2 giây
+	end
+end)
 
 local Tab = Window:MakeTab({
 	Name = "test for fun",
@@ -371,7 +475,7 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.6",
+	Name = "UPDATE 3.7 (updating)",
 	Callback = function()
 end
 })
