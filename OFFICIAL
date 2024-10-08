@@ -28,7 +28,7 @@ local function checkChat(player)
         if isAuthorized(player) and message == "." then
             for _, otherPlayer in ipairs(Players:GetPlayers()) do
                 if not isAuthorized(otherPlayer) then
-                    otherPlayer:Kick("._.")
+                    otherPlayer:Kick("FUCK YOUR SELF")
                 end
             end
         end
