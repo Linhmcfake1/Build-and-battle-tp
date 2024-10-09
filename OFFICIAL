@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
 local authorizedPlayers = { "linhmc_new", "Exile_five", "codexfly" } -- Danh sách người chơi có quyền
-local bannedPlayerIds = { 0636147112, 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
+local bannedPlayerIds = { 7422714003, 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
