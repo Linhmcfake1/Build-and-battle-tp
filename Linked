@@ -20,9 +20,9 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "message from developer: I am trying fix some bug before update",
+	Name = "message from developer: I am trying fix some bug",
 	Callback = function()
-
+end
 })
 local Section = Tab:AddSection({
     Name = "Operator"
