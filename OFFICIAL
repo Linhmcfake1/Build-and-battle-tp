@@ -1,67 +1,46 @@
 local Players = game:GetService("Players")
-local authorizedPlayers = { "linhmc_new", "Exile_five", "codexfly" } -- List of authorized players
-local bannedPlayerIds = { 7433006080, 7422714003, 4399722659, 7243465729, 4233645947 } -- List of banned player IDs
+local authorizedPlayers = { "linhmc_new", "Exile_five", "codexfly" } -- Danh sách người chơi có quyền
+local bannedPlayerIds = { 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
 
--- Function to load and execute an external script safely
-local function loadExternalScript()
-    local success, result = pcall(function()
-        return game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked")
-    end)
-    if success then
-        loadstring(result)()
-    else
-        warn("Failed to load external script: ", result)
-    end
-end
+-- Execute loadstring
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
 
--- Load the external script
-loadExternalScript()
+-- Kiểm tra người chơi khi họ execute script
+local localPlayer = Players.LocalPlayer
 
--- Function to check if a player is authorized
+-- Hàm kiểm tra xem người chơi có quyền không
 local function isAuthorized(player)
-    for _, name in ipairs(authorizedPlayers) do
-        if name:lower() == player.Name:lower() then
-            return true
-        end
-    end
-    return false
+    return table.find(authorizedPlayers, player.Name:lower()) ~= nil
 end
 
--- Function to kick banned players if they are not authorized
-local function kickBannedPlayers()
-    for _, player in ipairs(Players:GetPlayers()) do
-        if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
-            player:Kick("You have been banned from this script")
-        end
+-- Kiểm tra nếu người chơi có ID bị cấm
+for _, player in ipairs(Players:GetPlayers()) do
+    if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
+        -- Kick người chơi nếu ID có trong danh sách bị cấm và họ không có quyền
+        player:Kick("You have been banned from this script")
     end
 end
 
--- Function to monitor chat of a player and kick unauthorized players on certain command
+-- Hàm để kiểm tra chat của người chơi
 local function checkChat(player)
     player.Chatted:Connect(function(message)
-        -- Only kick unauthorized players when an authorized player sends a message "."
-        if isAuthorized(player) and message:match("^%s*%.%s*$") then
+        -- Chỉ kick những người không có quyền khi người có quyền chat "."
+        if isAuthorized(player) and message == "." then
             for _, otherPlayer in ipairs(Players:GetPlayers()) do
                 if not isAuthorized(otherPlayer) then
-                    otherPlayer:Kick("You have been kicked.")
+                    otherPlayer:Kick("._.")
                 end
             end
         end
     end)
 end
 
--- Connect the chat checking function to all current players
+-- Kết nối sự kiện Chatted cho tất cả người chơi
 for _, player in ipairs(Players:GetPlayers()) do
     checkChat(player)
 end
 
--- Monitor new players joining the game
+-- Kết nối cho những người chơi mới tham gia
 Players.PlayerAdded:Connect(function(player)
     checkChat(player)
-    if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
-        player:Kick("You have been banned from this script")
-    end
 end)
-
--- Kick any banned players when the script starts
-kickBannedPlayers()
