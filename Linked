@@ -18,7 +18,9 @@ Tab:AddButton({
         game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
     end    
 })
-
+Tab:AddButton({
+	Name = "message from developer: I am trying fix some bug before update",
+	Callback = function()
 local Section = Tab:AddSection({
     Name = "Operator"
 })
