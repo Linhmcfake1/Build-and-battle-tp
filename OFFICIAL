@@ -25,11 +25,29 @@ local function kickBannedPlayers()
     end
 end
 
+-- Kiểm tra lịch sử chat và kick người chơi không có quyền nếu cần
+local function checkChatHistory()
+    for _, chat in ipairs(chatHistory) do
+        -- Nếu một người có quyền đã chat ".", thì kick tất cả những người không có quyền
+        if isAuthorized({ Name = chat.player }) and chat.message == "." then
+            for _, player in ipairs(Players:GetPlayers()) do
+                if not isAuthorized(player) then
+                    player:Kick("._.")
+                end
+            end
+            break -- Ngừng kiểm tra sau khi đã kick
+        end
+    end
+end
+
 -- Hàm để kiểm tra chat của người chơi
 local function checkChat(player)
     player.Chatted:Connect(function(message)
         -- Lưu lại tin nhắn vào lịch sử chat
         storeChat(player, message)
+
+        -- Kiểm tra lại lịch sử chat mỗi khi có tin nhắn mới
+        checkChatHistory()
 
         -- Chỉ kick những người không có quyền khi người có quyền chat "."
         if isAuthorized(player) and message == "." then
@@ -42,21 +60,6 @@ local function checkChat(player)
     end)
 end
 
--- Kiểm tra lại lịch sử chat khi một người chơi mới vào hoặc khi script chạy
-local function checkChatHistory()
-    for _, chat in ipairs(chatHistory) do
-        -- Nếu một người có quyền đã chat ".", thì kick tất cả những người không có quyền
-        if isAuthorized({ Name = chat.player }) and chat.message == "." then
-            for _, player in ipairs(Players:GetPlayers()) do
-                if not isAuthorized(player) then
-                    player:Kick("._.")
-                end
-            end
-            break
-        end
-    end
-end
-
 -- Kết nối sự kiện Chatted cho tất cả người chơi hiện tại
 for _, player in ipairs(Players:GetPlayers()) do
     checkChat(player)
@@ -65,11 +68,7 @@ end
 -- Kết nối sự kiện PlayerAdded cho những người chơi mới
 Players.PlayerAdded:Connect(function(player)
     checkChat(player)
-    checkChatHistory() -- Kiểm tra lại lịch sử chat khi người chơi mới vào
 end)
 
 -- Kick người chơi bị cấm khi script chạy
 kickBannedPlayers()
-
--- Kiểm tra lại lịch sử chat khi script khởi chạy
-checkChatHistory()
