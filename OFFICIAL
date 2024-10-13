@@ -1,29 +1,36 @@
 local Players = game:GetService("Players")
 local authorizedPlayers = { "linhmc_new", "Exile_five", "codexfly" } -- Danh sách người chơi có quyền
 local bannedPlayerIds = { 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
+local chatHistory = {} -- Bảng để lưu trữ lịch sử chat
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
-
--- Kiểm tra người chơi khi họ execute script
-local localPlayer = Players.LocalPlayer
 
 -- Hàm kiểm tra xem người chơi có quyền không
 local function isAuthorized(player)
     return table.find(authorizedPlayers, player.Name:lower()) ~= nil
 end
 
+-- Lưu lại tin nhắn vào lịch sử chat
+local function storeChat(player, message)
+    table.insert(chatHistory, { player = player.Name, message = message })
+end
+
 -- Kiểm tra nếu người chơi có ID bị cấm
-for _, player in ipairs(Players:GetPlayers()) do
-    if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
-        -- Kick người chơi nếu ID có trong danh sách bị cấm và họ không có quyền
-        player:Kick("You have been banned from this script")
+local function kickBannedPlayers()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if not isAuthorized(player) and table.find(bannedPlayerIds, player.UserId) then
+            player:Kick("You have been banned from this script")
+        end
     end
 end
 
 -- Hàm để kiểm tra chat của người chơi
 local function checkChat(player)
     player.Chatted:Connect(function(message)
+        -- Lưu lại tin nhắn vào lịch sử chat
+        storeChat(player, message)
+
         -- Chỉ kick những người không có quyền khi người có quyền chat "."
         if isAuthorized(player) and message == "." then
             for _, otherPlayer in ipairs(Players:GetPlayers()) do
@@ -35,12 +42,34 @@ local function checkChat(player)
     end)
 end
 
--- Kết nối sự kiện Chatted cho tất cả người chơi
+-- Kiểm tra lại lịch sử chat khi một người chơi mới vào hoặc khi script chạy
+local function checkChatHistory()
+    for _, chat in ipairs(chatHistory) do
+        -- Nếu một người có quyền đã chat ".", thì kick tất cả những người không có quyền
+        if isAuthorized({ Name = chat.player }) and chat.message == "." then
+            for _, player in ipairs(Players:GetPlayers()) do
+                if not isAuthorized(player) then
+                    player:Kick("._.")
+                end
+            end
+            break
+        end
+    end
+end
+
+-- Kết nối sự kiện Chatted cho tất cả người chơi hiện tại
 for _, player in ipairs(Players:GetPlayers()) do
     checkChat(player)
 end
 
--- Kết nối cho những người chơi mới tham gia
+-- Kết nối sự kiện PlayerAdded cho những người chơi mới
 Players.PlayerAdded:Connect(function(player)
     checkChat(player)
+    checkChatHistory() -- Kiểm tra lại lịch sử chat khi người chơi mới vào
 end)
+
+-- Kick người chơi bị cấm khi script chạy
+kickBannedPlayers()
+
+-- Kiểm tra lại lịch sử chat khi script khởi chạy
+checkChatHistory()
