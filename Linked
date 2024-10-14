@@ -12,7 +12,7 @@ Tab:AddButton({
     Name = "script by linhmc_new",
     Callback = function()
         local args = {
-            [1] = "SCRIPT BY LINHMC_NEW",
+            [1] = "Script By Linhmc_new",
             [2] = "All"
         }
         game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
