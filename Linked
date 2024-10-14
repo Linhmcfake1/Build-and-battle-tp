@@ -1,4 +1,4 @@
-local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/refs/heads/main/Mobile%20(2).txt'))()
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/refs/heads/main/Mobile'))()
 
 local Window = Orion:MakeWindow({Name = "LinhmcHub Renewed", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
