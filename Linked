@@ -1,4 +1,4 @@
-local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/main/Mobile'))()
+local Orion = loadstring(game:HttpGet('https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/refs/heads/main/Mobile%20(2).txt'))()
 
 local Window = Orion:MakeWindow({Name = "LinhmcHub Renewed", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
@@ -19,11 +19,6 @@ Tab:AddButton({
     end    
 })
 
-Tab:AddButton({
-	Name = "message from developer: I am trying fix some bug",
-	Callback = function()
-end
-})
 local Section = Tab:AddSection({
     Name = "Operator"
 })
@@ -480,7 +475,13 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.7 (updating)",
+	Name = "UPDATE 3.7",
 	Callback = function()
+end
+})
+Tab:AddButton({
+	Name = "",
+	Callback = function(sorry, i probably won't release another update)
+
 end
 })
