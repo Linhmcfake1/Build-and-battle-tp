@@ -480,7 +480,7 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
-	Name = "sorry, i probably won't release another update",
+	Name = "sorry, i probably won't release a big update",
 	Callback = function()
 
 end
