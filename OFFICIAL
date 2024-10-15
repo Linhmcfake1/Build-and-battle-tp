@@ -5,7 +5,7 @@ local chatHistory = {} -- Bảng để lưu trữ lịch sử chat
 
 -- Execute loadstring
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Linked"))()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/refs/heads/main/button"))()
 -- Hàm kiểm tra xem người chơi có quyền không
 local function isAuthorized(player)
     return table.find(authorizedPlayers, player.Name:lower()) ~= nil
