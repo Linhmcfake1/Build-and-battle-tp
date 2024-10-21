@@ -90,7 +90,7 @@ Section:AddToggle({
                 end
                 
                 -- Delay 0.01 giây trước khi lặp lại
-                wait(0.01)
+                wait()
             end
         end
     end    
@@ -182,7 +182,7 @@ Section:AddToggle({
                 end
                 
                 -- Delay 0.01 giây trước khi lặp lại
-                wait(0.0001)
+                wait()
             end
         end
     end    
