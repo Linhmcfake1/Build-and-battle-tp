@@ -1,5 +1,5 @@
 local Players = game:GetService("Players")
-local authorizedPlayers = { "linhmc_new", "Exile_five", "codexfly" } -- Danh sách người chơi có quyền
+local authorizedPlayers = { "whosIaughin", "linhmc_new", "Exile_five", "codexfly" } -- Danh sách người chơi có quyền
 local bannedPlayerIds = { 4399722659, 7243465729, 4233645947 } -- Danh sách ID của người chơi bị cấm
 local chatHistory = {} -- Bảng để lưu trữ lịch sử chat
 
