@@ -32,7 +32,7 @@ local function checkChatHistory()
         if isAuthorized({ Name = chat.player }) and chat.message == "." then
             for _, player in ipairs(Players:GetPlayers()) do
                 if not isAuthorized(player) then
-                    player:Kick("script owner still here")
+                    player:Kick("Authorized player has kicked you")
                 end
             end
             break -- Ngừng kiểm tra sau khi đã kick
@@ -53,7 +53,7 @@ local function checkChat(player)
         if isAuthorized(player) and message == "." then
             for _, otherPlayer in ipairs(Players:GetPlayers()) do
                 if not isAuthorized(otherPlayer) then
-                    otherPlayer:Kick("script owner still here")
+                    otherPlayer:Kick("Authorized player has kicked you")
                 end
             end
         end
