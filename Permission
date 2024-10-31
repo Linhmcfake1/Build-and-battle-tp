@@ -1,0 +1,31 @@
+local Players = game:GetService("Players")
+local authorizedPlayers = { "XsTxD", "7193c", "whosIaughin", "linhmc_new", "Exile_five", "codexfly" }
+local localPlayer = Players.LocalPlayer -- Người chơi sử dụng script
+
+-- Hàm kiểm tra quyền
+local function isAuthorized(player)
+    return table.find(authorizedPlayers, player.Name:lower()) ~= nil
+end
+
+-- Hàm kick người dùng script nếu gặp người chơi có quyền
+local function checkAndKickIfAuthorizedPresent()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if isAuthorized(player) and player ~= localPlayer then
+            localPlayer:Kick("You have been kicked for encountering an authorized player.")
+            break
+        end
+    end
+end
+
+-- Kiểm tra khi người chơi có quyền tham gia
+Players.PlayerAdded:Connect(function(player)
+    if isAuthorized(player) then
+        localPlayer:Kick("You have been kicked because an authorized player joined the server.")
+    end
+end)
+
+-- Kiểm tra liên tục để phát hiện người chơi có quyền
+while true do
+    checkAndKickIfAuthorizedPresent()
+    wait(5) -- Thời gian chờ giữa các lần kiểm tra
+end
