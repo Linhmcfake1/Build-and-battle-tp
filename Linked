@@ -322,7 +322,7 @@ TeleportTab:AddDropdown({
 })
 
 local Section = TeleportTab:AddSection({
-    Name = "Goto Player"
+    Name = "Player"
 })
 
 -- Phần để chọn người chơi, như đã đề cập trước đó
@@ -368,7 +368,7 @@ end
 
 -- Dropdown chọn người chơi
 PlayerDropdown = TeleportTab:AddDropdown({
-	Name = "Select Player",
+	Name = "goto target",
 	Default = "",
 	Options = playerList,
 	Callback = function(value)
@@ -409,7 +409,105 @@ spawn(function()
 		wait(2) -- Kiểm tra và cập nhật mỗi 2 giây
 	end
 end)
+--// Services \\--
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LPlayer = Players.LocalPlayer
 
+--// Variables \\--
+local Remotes = ReplicatedStorage.Remotes
+local StampAsset = Remotes.StampAsset
+local Plates = Workspace.Plates
+local LPlate
+
+for _, Plate in pairs(Plates:GetChildren()) do
+    if (Plate.Owner.Value == LPlayer) then
+        LPlate = Plate.Plate
+        break
+    end
+end
+
+local Module = {}
+
+function Module.Freeze(Part)
+    Module.Weld(Part)
+end
+
+function Module.Weld(Part)
+    print("Applying StampAsset to:", Part) -- Kiểm tra xem Part có đúng với targetPlayer hay không
+
+    local args = {
+        56447956,
+        LPlate.CFrame + Vector3.new(0, 200, 0),
+        "{3ae31e60-5cd0-4d80-96b6-a1dd894ece8a}",
+        {Part},
+        0
+    }
+    StampAsset:InvokeServer(unpack(args))
+end
+
+local selectedPlayer = ""
+
+-- Hàm để cập nhật danh sách người chơi
+local function updatePlayerList()
+    local playerList = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        table.insert(playerList, player.Name)
+    end
+    return playerList
+end
+
+-- Thêm Dropdown selection
+local playerDropdown = Section:AddDropdown({
+    Name = "Select target to freeze",
+    Options = updatePlayerList(),
+    Default = "",
+    Callback = function(value)
+        selectedPlayer = value
+    end
+})
+
+-- Thêm Button để thực hiện hành động freeze
+Section:AddButton({
+    Name = "Freeze",
+    Callback = function()
+        local targetPlayer
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player.Name == selectedPlayer then
+                targetPlayer = player
+                break
+            end
+        end
+
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character.PrimaryPart then
+            print("Freezing target:", targetPlayer.Name) -- Kiểm tra xem targetPlayer đã được chọn đúng chưa
+            Module.Freeze(targetPlayer.Character.PrimaryPart)
+            OrionLib:MakeNotification({
+                Name = "Freeze",
+                Content = "Successfully frozen target: " .. targetPlayer.Name,
+                Image = "rbxassetid://4483345998",
+                Time = 5
+            })
+        else
+            OrionLib:MakeNotification({
+                Name = "Error",
+                Content = "Target not found or has no primary part!",
+                Image = "rbxassetid://4483345998",
+                Time = 5
+            })
+        end
+    end
+})
+
+-- Cập nhật danh sách người chơi mỗi khi có sự thay đổi
+Players.PlayerAdded:Connect(function()
+    playerDropdown:Refresh(updatePlayerList())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    playerDropdown:Refresh(updatePlayerList())
+end)
 local Tab = Window:MakeTab({
 	Name = "test for fun",
 	Icon = "",
@@ -475,12 +573,12 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 Tab:AddButton({
-	Name = "UPDATE 3.7",
+	Name = "UPDATE:null",
 	Callback = function()
 end
 })
 Tab:AddButton({
-	Name = "sorry, i probably won't release a big update",
+	Name = "Hi",
 	Callback = function()
 
 end
