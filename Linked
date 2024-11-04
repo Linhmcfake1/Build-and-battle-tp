@@ -511,16 +511,9 @@ spawn(function()
     end
 end)
 local Tab = Window:MakeTab({
-	Name = "silly (new)",
+	Name = "test for fun",
 	Icon = "",
 	PremiumOnly = false
-})
-
-Tab:AddButton({
-	Name = "Xray Gui",
-	Callback = function()
-loadstring(game:HttpGet("")https://raw.githubusercontent.com/Linhmcfake1/Orion-lib/refs/heads/main/XrayGui)()
-end
 })
 
 Tab:AddButton({
@@ -530,7 +523,7 @@ end
 })
 Tab:AddButton({
 	Name = "sukuna (i dont have any idea)",
-Callback = function()
+	Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Linhmcfake1/Build-and-battle-tp/refs/heads/main/Sukuna"))()
 end
 })
