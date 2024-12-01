@@ -1,5 +1,5 @@
 local Anim = Instance.new("Animation")
-Anim.AnimationId = "rbxassetid://184574340"  -- ID của hoạt ảnh bạn muốn phát
+Anim.AnimationId = ""  -- ID của hoạt ảnh bạn muốn phát
 local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
 
 -- Phát hoạt ảnh ngay khi execute
