@@ -1,0 +1,42 @@
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LPlayer = Players.LocalPlayer
+
+-- Variables
+local Remotes: Folder = ReplicatedStorage.Remotes
+local StampAsset: RemoteFunction = Remotes.StampAsset
+
+local Plates: Model = Workspace.Plates
+local LPlate: Part
+
+for _, Plate in pairs(Plates:GetChildren()) do
+    if (Plate.Owner.Value == LPlayer) then
+        LPlate = Plate.Plate
+        break
+    end
+end
+
+local Module = {}
+
+function Module.Kill(Player)
+    if (Player:IsA("Player")) then Player = Player.Character.PrimaryPart end
+    StampAsset:InvokeServer(
+        41324945,
+        LPlate.CFrame - Vector3.new(0, 2.5, 0),
+        "{99ab22df-ca29-4143-a2fd-0a1b79db78c2}",
+        {Player},
+        0
+    )
+end
+
+-- Target all players except the local player and their friends
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LPlayer 
+       and not LPlayer:IsFriendsWith(player.UserId) 
+       and player.Character 
+       and player.Character.PrimaryPart then
+        Module.Kill(player.Character.PrimaryPart)
+    end
+end
